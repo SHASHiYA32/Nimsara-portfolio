@@ -563,7 +563,7 @@ export default function App() {
   const readStats = currentProject ? calculateReadingTime(currentProject.desc, currentProject.highlights) : null;
 
   return (
-    <div className="bg-black text-white relative min-h-screen selection:bg-white selection:text-black antialiased">
+    <div className="bg-black text-white relative min-h-[100dvh] selection:bg-white selection:text-black antialiased">
 
       {/* Background Grid Mesh */}
       <div className="fixed inset-0 bg-grid-pattern opacity-80 pointer-events-none z-0"></div>
