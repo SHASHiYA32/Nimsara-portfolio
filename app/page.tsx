@@ -632,7 +632,7 @@ export default function App() {
           </div>
 
           {/* Action Button & Mobile Toggle */}
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-2.5 backdrop-blur-xl">
             <button
               onClick={() => setIsCommandPaletteOpen(true)}
               className="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-[#18181b] border border-[#27272a] text-zinc-300 hover:text-white hover:border-zinc-500 text-xs font-mono transition-all active:scale-95"
