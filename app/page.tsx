@@ -632,7 +632,7 @@ export default function App() {
           </div>
 
           {/* Action Button & Mobile Toggle */}
-          <div className="flex items-center gap-2.5 backdrop-blur-xl">
+          <div className="flex items-center gap-2.5">
             <button
               onClick={() => setIsCommandPaletteOpen(true)}
               className="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-[#18181b] border border-[#27272a] text-zinc-300 hover:text-white hover:border-zinc-500 text-xs font-mono transition-all active:scale-95"
@@ -662,7 +662,7 @@ export default function App() {
 
         {/* Mobile Drawer Overlay */}
         {isMobileMenuOpen && (
-          <div className="md:hidden mt-2 glass-card rounded-2xl p-4 border border-[#27272a] flex flex-col gap-2 shadow-2xl">
+          <div className="md:hidden mt-2 glass-card rounded-2xl p-4 border border-[#27272a] flex flex-col gap-2 shadow-2xl  backdrop-blur-xl">
             <a
               href="#about"
               onClick={() => setIsMobileMenuOpen(false)}
