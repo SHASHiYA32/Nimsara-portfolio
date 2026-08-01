@@ -1,6 +1,13 @@
-'use client'
+"use client";
 
-import React, { useState, useEffect, useRef, useCallback, FormEvent, MouseEvent } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  FormEvent,
+  MouseEvent,
+} from "react";
 import {
   FileText,
   Menu,
@@ -41,19 +48,21 @@ import {
   Mail,
   MessageSquare,
   Keyboard,
-  SquareSigma
-} from 'lucide-react';
+  SquareSigma,
+  Brain,
+  GraduationCap,
+} from "lucide-react";
 
-import Hero from '@/components/Hero';
-import AmbientGlow from '@/components/AmbientGlow';
-import ContactGuestbook from '@/components/ContactGuestbook';
-import About from '@/components/About';
+import Hero from "@/components/Hero";
+import AmbientGlow from "@/components/AmbientGlow";
+import ContactGuestbook from "@/components/ContactGuestbook";
+import About from "@/components/About";
 
 interface ProjectData {
   id: string;
   title: string;
   categoryLabel: string;
-  categoryGroup: 'ai' | 'web' | 'system';
+  categoryGroup: "ai" | "web" | "system";
   img: string;
   desc: string;
   highlights: string[];
@@ -62,96 +71,96 @@ interface ProjectData {
 }
 
 const PROJECTS_DATA: Record<string, ProjectData> = {
-  nexus: {
-    id: 'nexus',
-    title: 'Nexus AI Analytics Platform',
-    categoryLabel: 'AI / Analytics',
-    categoryGroup: 'ai',
-    img: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&auto=format&fit=crop&q=80',
-    desc: 'An AI-native telemetry dashboard built for real-time monitoring of machine learning model latency, inference token throughput, and system resource optimization.',
+  portfolio: {
+    id: "portfolio",
+    title: "Personal Portfolio Website",
+    categoryLabel: "Portfolio / Web",
+    categoryGroup: "web",
+    img: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=800&auto=format&fit=crop&q=80",
+    desc: "My primary personal developer portfolio featuring a dark minimalist aesthetic, glassmorphism, interactive command palette, and smooth section transitions.",
     highlights: [
-      'Integrated Gemini REST API for streaming metric summaries.',
-      'Sub-100ms chart canvas renders using memoized Recharts.',
-      'Dark mode ambient color themes with glassmorphic cards.'
+      "Built with Next.js, React, and Tailwind CSS v4.",
+      "Custom global keyboard shortcuts and command palette (Ctrl+K).",
+      "Fully responsive grid layout with live interactive project previews.",
     ],
-    tags: ['React 19', 'TypeScript', 'Tailwind', 'Gemini API', 'Recharts'],
-    link: 'https://github.com'
+    tags: ["Next.js", "React", "Tailwind CSS", "TypeScript"],
+    link: "http://shashintha-nimsara.vercel.app/",
   },
-  aura: {
-    id: 'aura',
-    title: 'Aura Luxury Storefront',
-    categoryLabel: 'E-Commerce',
-    categoryGroup: 'web',
-    img: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&auto=format&fit=crop&q=80',
-    desc: 'A high-end e-commerce interface built for high conversion. Features smooth drawer cart state, client-side product search, and responsive layout.',
+  devdynamo: {
+    id: "devdynamo",
+    title: "DevDynamo Official",
+    categoryLabel: "Company / Agency",
+    categoryGroup: "system",
+    img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&auto=format&fit=crop&q=80",
+    desc: "The official digital hub for DevDynamo, showcasing full-stack web and game development services, enterprise tools, and creative digital solutions.",
     highlights: [
-      'Optimized image loading pipeline with fallback placeholding.',
-      'Framer Motion layout transitions between product pages.',
-      'Instant search filtering across 500+ SKU mock catalog.'
+      "Professional agency showcase layout.",
+      "Optimized performance and clean typography architecture.",
+      "Integrated contact and project inquiry flows.",
     ],
-    tags: ['Next.js', 'TypeScript', 'Tailwind v4', 'Motion'],
-    link: 'https://github.com'
+    tags: ["Full Stack", "Web Dev", "Tailwind", "UI/UX"],
+    link: "https://dev-dynamo-official.vercel.app/",
   },
-  cyber: {
-    id: 'cyber',
-    title: 'CyberCanvas UI Primitives',
-    categoryLabel: 'Design System',
-    categoryGroup: 'system',
-    img: 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=800&auto=format&fit=crop&q=80',
-    desc: 'A reusable, accessible React component library crafted with Tailwind v4 and Radix UI primitives. Tested for keyboard navigation and WCAG AA contrast.',
+  pos: {
+    id: "pos",
+    title: "POS Management System",
+    categoryLabel: "Business System",
+    categoryGroup: "system",
+    img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&auto=format&fit=crop&q=80",
+    desc: "A comprehensive Point of Sale (POS) system designed for streamlined inventory tracking, sales processing, and business reporting.",
     highlights: [
-      '30+ accessible components with dark theme tokens.',
-      'Zero layout shift design architecture.',
-      'Strict TypeScript prop types & Storybook docs.'
+      "Real-time inventory and stock updates.",
+      "Fast checkout and transaction processing UI.",
+      "Sales analytics dashboard views.",
     ],
-    tags: ['React', 'Radix UI', 'Tailwind', 'TypeScript'],
-    link: 'https://github.com'
+    tags: ["React", "Database", "Dashboard", "Node.js"],
+    link: "https://pos-system-livid-pi.vercel.app/",
   },
-  velocity: {
-    id: 'velocity',
-    title: 'Velocity Kanban Suite',
-    categoryLabel: 'Productivity',
-    categoryGroup: 'web',
-    img: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&auto=format&fit=crop&q=80',
-    desc: 'Agile project board empowering remote engineering teams. Features drag-and-drop workflow status, offline local storage persistence, and filter tags.',
+  finance: {
+    id: "finance",
+    title: "Personal Finance Tracker",
+    categoryLabel: "Productivity / FinTech",
+    categoryGroup: "web",
+    img: "https://images.unsplash.com/photo-1642543492481-44e81e3914a7?w=800&auto=format&fit=crop&q=80",
+    desc: "An intuitive web application to monitor daily expenses, manage budgets, and visualize financial growth over time.",
     highlights: [
-      'Drag and drop state managed via lightweight Zustand hooks.',
-      'Offline auto-sync with LocalStorage.',
-      'Custom dark minimalist keyboard shortcuts.'
+      "Interactive expense categorization and budget limits.",
+      "Clean chart visualizers for monetary tracking.",
+      "Responsive dark-themed layout.",
     ],
-    tags: ['React 19', 'Zustand', 'Tailwind', 'TypeScript'],
-    link: 'https://github.com'
+    tags: ["React", "TypeScript", "Tailwind", "Charts"],
+    link: "https://personal-finance-tracker-psi-six.vercel.app/",
   },
-  pulse: {
-    id: 'pulse',
-    title: 'Pulse Audio Synthesizer',
-    categoryLabel: 'Audio / Canvas',
-    categoryGroup: 'web',
-    img: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&auto=format&fit=crop&q=80',
-    desc: 'Browser-based digital synthesizer leveraging WebAudio API oscillators, customizable frequency filters, and real-time canvas visualizers.',
+  aurex: {
+    id: "aurex",
+    title: "Aurex Web Platform",
+    categoryLabel: "Web Application",
+    categoryGroup: "web",
+    img: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&auto=format&fit=crop&q=80",
+    desc: "A dynamic web platform built for high-speed performance, clean component architecture, and seamless user interaction.",
     highlights: [
-      'Real-time audio frequency visualizer on 60fps HTML5 Canvas.',
-      'Custom ADSR envelope controls and preset sound saving.',
-      'Low-latency WebAudio oscillator pipeline.'
+      "Optimized page load speeds and component modularity.",
+      "Modern interactive UI elements.",
+      "Scalable frontend structure.",
     ],
-    tags: ['WebAudio API', 'HTML5 Canvas', 'TypeScript'],
-    link: 'https://github.com'
+    tags: ["Next.js", "React", "UI/UX"],
+    link: "https://aurex-production.vercel.app/",
   },
-  zenith: {
-    id: 'zenith',
-    title: 'Zenith Terminal Dashboard',
-    categoryLabel: 'FinTech',
-    categoryGroup: 'ai',
-    img: 'https://images.unsplash.com/photo-1642543492481-44e81e3914a7?w=800&auto=format&fit=crop&q=80',
-    desc: 'Real-time market analytics dashboard rendering crypto ticker orderbooks, liquidity depth heatmaps, and price alert triggers.',
+  todo: {
+    id: "todo",
+    title: "Next.js Todo Application",
+    categoryLabel: "Productivity",
+    categoryGroup: "web",
+    img: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=800&auto=format&fit=crop&q=80",
+    desc: "A feature-rich task management application built to handle daily workflows, task statuses, and smooth local state persistence.",
     highlights: [
-      'Real-time WebSocket streaming feed integration.',
-      'Custom candlestick chart rendering with high performance.',
-      'Dark theme contrast compliance for long trading sessions.'
+      "Instant task creation, editing, and deletion flow.",
+      "Clean state handling and data organization.",
+      "Minimalist dark mode UI design.",
     ],
-    tags: ['React', 'WebSockets', 'Chart.js', 'TypeScript'],
-    link: 'https://github.com'
-  }
+    tags: ["Next.js", "React", "Tailwind CSS"],
+    link: "https://next-js-todo-app-gamma-five.vercel.app/",
+  },
 };
 
 interface GuestbookComment {
@@ -163,23 +172,26 @@ interface GuestbookComment {
 
 const DEFAULT_COMMENTS: GuestbookComment[] = [
   {
-    name: 'Marcus Vance',
-    role: 'VP of Product @ TechScale',
-    message: "Nimsara's dark minimalist aesthetic and clean code structure are top tier. Loved working together on the design system!",
-    time: '2 hours ago'
+    name: "Marcus Vance",
+    role: "VP of Product @ TechScale",
+    message:
+      "Nimsara's dark minimalist aesthetic and clean code structure are top tier. Loved working together on the design system!",
+    time: "2 hours ago",
   },
   {
-    name: 'Elena Rostova',
-    role: 'Senior UX Designer',
-    message: 'The 3D tilt card in the hero section is super smooth! Exceptional attention to spacing and micro-interactions.',
-    time: 'Yesterday'
+    name: "Elena Rostova",
+    role: "Senior UX Designer",
+    message:
+      "The 3D tilt card in the hero section is super smooth! Exceptional attention to spacing and micro-interactions.",
+    time: "Yesterday",
   },
   {
-    name: 'David K.',
-    role: 'Full Stack Engineer',
-    message: 'Clean performance, crisp typography choices, and ultra fast tabs showcase. Stellar work!',
-    time: '3 days ago'
-  }
+    name: "David K.",
+    role: "Full Stack Engineer",
+    message:
+      "Clean performance, crisp typography choices, and ultra fast tabs showcase. Stellar work!",
+    time: "3 days ago",
+  },
 ];
 
 interface Toast {
@@ -187,13 +199,16 @@ interface Toast {
   message: string;
 }
 
-function calculateReadingTime(descText: string, highlightsArray: string[] = []) {
-  const combinedText = descText + ' ' + highlightsArray.join(' ');
+function calculateReadingTime(
+  descText: string,
+  highlightsArray: string[] = [],
+) {
+  const combinedText = descText + " " + highlightsArray.join(" ");
   const words = combinedText.trim().split(/\s+/).filter(Boolean).length;
   const wpm = 200;
   const totalSeconds = Math.max(5, Math.round((words / wpm) * 60));
 
-  let badgeLabel = '';
+  let badgeLabel = "";
   if (totalSeconds < 30) {
     badgeLabel = `${totalSeconds}s read`;
   } else if (totalSeconds < 60) {
@@ -210,21 +225,29 @@ export default function App() {
   // Preloader State
   const [isLoadingPreloader, setIsLoadingPreloader] = useState(true);
   const [preloaderProgress, setPreloaderProgress] = useState(0);
-  const [preloaderMessage, setPreloaderMessage] = useState('Welcome to my Portfolio Website...');
+  const [preloaderMessage, setPreloaderMessage] = useState(
+    "Welcome to my Portfolio Website...",
+  );
 
   // Navigation & UI States
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState<'projects' | 'techstack' | 'certificates'>('projects');
-  const [selectedCategory, setSelectedCategory] = useState<'all' | 'web' | 'ai' | 'system'>('all');
+  const [activeTab, setActiveTab] = useState<
+    "projects" | "techstack" | "certificates"
+  >("projects");
+  const [selectedCategory, setSelectedCategory] = useState<
+    "all" | "web" | "ai" | "system"
+  >("all");
 
   // Modals
-  const [selectedProjectKey, setSelectedProjectKey] = useState<string | null>(null);
+  const [selectedProjectKey, setSelectedProjectKey] = useState<string | null>(
+    null,
+  );
   const [isResumeModalOpen, setIsResumeModalOpen] = useState(false);
 
   // Command Palette & Shortcut Helper State
   const [isShortcutHelperOpen, setIsShortcutHelperOpen] = useState(false);
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
-  const [commandQuery, setCommandQuery] = useState('');
+  const [commandQuery, setCommandQuery] = useState("");
   const [commandSelectedIndex, setCommandSelectedIndex] = useState(0);
   const commandInputRef = useRef<HTMLInputElement>(null);
 
@@ -233,39 +256,44 @@ export default function App() {
   const [ambientPos, setAmbientPos] = useState({ x: -1000, y: -1000 });
 
   // Guestbook & Contact
-  const [guestbookComments, setGuestbookComments] = useState<GuestbookComment[]>([]);
+  const [guestbookComments, setGuestbookComments] = useState<
+    GuestbookComment[]
+  >([]);
 
   // Toasts
   const [toasts, setToasts] = useState<Toast[]>([]);
 
   const showToast = useCallback((msg: string) => {
     const id = Math.random().toString(36).substring(2, 9);
-    setToasts(prev => [...prev, { id, message: msg }]);
+    setToasts((prev) => [...prev, { id, message: msg }]);
     setTimeout(() => {
-      setToasts(prev => prev.filter(t => t.id !== id));
+      setToasts((prev) => prev.filter((t) => t.id !== id));
     }, 3500);
   }, []);
 
-  const scrollToSection = useCallback((sectionId: string, toastMsg?: string) => {
-    const el = document.getElementById(sectionId);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-      if (toastMsg) {
-        showToast(toastMsg);
+  const scrollToSection = useCallback(
+    (sectionId: string, toastMsg?: string) => {
+      const el = document.getElementById(sectionId);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+        if (toastMsg) {
+          showToast(toastMsg);
+        }
       }
-    }
-  }, [showToast]);
+    },
+    [showToast],
+  );
 
   // Global Keyboard Shortcuts (Ctrl+K for Command Palette, Ctrl+Alt+[Key] for Sections)
   useEffect(() => {
     const handleGlobalKeys = (e: KeyboardEvent) => {
       // 1. Command Palette Trigger: Ctrl + K or Cmd + K
-      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
         e.preventDefault();
-        setIsCommandPaletteOpen(prev => {
+        setIsCommandPaletteOpen((prev) => {
           const next = !prev;
           if (next) {
-            setCommandQuery('');
+            setCommandQuery("");
             setCommandSelectedIndex(0);
           }
           return next;
@@ -276,43 +304,43 @@ export default function App() {
       // 2. Direct Section Scroll Shortcuts: Ctrl + Alt + [Key]
       if (e.ctrlKey && e.altKey) {
         const key = e.key.toLowerCase();
-        if (key === 'c') {
+        if (key === "c") {
           e.preventDefault();
-          scrollToSection('contact', 'Jumped to Contacts (Ctrl + Alt + C)');
+          scrollToSection("contact", "Jumped to Contacts (Ctrl + Alt + C)");
           setIsCommandPaletteOpen(false);
-        } else if (key === 'a') {
+        } else if (key === "a") {
           e.preventDefault();
-          scrollToSection('about', 'Jumped to About (Ctrl + Alt + A)');
+          scrollToSection("about", "Jumped to About (Ctrl + Alt + A)");
           setIsCommandPaletteOpen(false);
-        } else if (key === 'p') {
+        } else if (key === "p") {
           e.preventDefault();
-          setActiveTab('projects');
-          scrollToSection('showcase', 'Jumped to Projects (Ctrl + Alt + P)');
+          setActiveTab("projects");
+          scrollToSection("showcase", "Jumped to Projects (Ctrl + Alt + P)");
           setIsCommandPaletteOpen(false);
-        } else if (key === 'g') {
+        } else if (key === "g") {
           e.preventDefault();
-          scrollToSection('guestbook', 'Jumped to Guestbook (Ctrl + Alt + G)');
+          scrollToSection("guestbook", "Jumped to Guestbook (Ctrl + Alt + G)");
           setIsCommandPaletteOpen(false);
-        } else if (key === 'h') {
+        } else if (key === "h") {
           e.preventDefault();
-          scrollToSection('hero', 'Jumped to Top (Ctrl + Alt + H)');
+          scrollToSection("hero", "Jumped to Top (Ctrl + Alt + H)");
           setIsCommandPaletteOpen(false);
-        } else if (key === 'r') {
+        } else if (key === "r") {
           e.preventDefault();
           setIsResumeModalOpen(true);
-          showToast('Opened Resume (Ctrl + Alt + R)');
+          showToast("Opened Resume (Ctrl + Alt + R)");
           setIsCommandPaletteOpen(false);
-        } else if (key === 't') {
+        } else if (key === "t") {
           e.preventDefault();
-          setActiveTab('techstack');
-          scrollToSection('showcase', 'Jumped to Tech Stack (Ctrl + Alt + T)');
+          setActiveTab("techstack");
+          scrollToSection("showcase", "Jumped to Tech Stack (Ctrl + Alt + T)");
           setIsCommandPaletteOpen(false);
         }
       }
     };
 
-    window.addEventListener('keydown', handleGlobalKeys);
-    return () => window.removeEventListener('keydown', handleGlobalKeys);
+    window.addEventListener("keydown", handleGlobalKeys);
+    return () => window.removeEventListener("keydown", handleGlobalKeys);
   }, [scrollToSection, showToast]);
 
   // Auto-focus input when command palette opens
@@ -327,139 +355,150 @@ export default function App() {
   // Command Palette Items
   const commandsList = [
     {
-      id: 'cmd-hero',
-      title: 'Scroll to Top / Hero',
-      description: 'Jump to the main landing hero banner',
-      category: 'Navigation',
+      id: "cmd-hero",
+      title: "Scroll to Top / Hero",
+      description: "Jump to the main landing hero banner",
+      category: "Navigation",
       icon: <ArrowUp className="w-4 h-4 text-indigo-400" />,
-      shortcut: 'Ctrl + Alt + H',
+      shortcut: "Ctrl + Alt + H",
       action: () => {
-        scrollToSection('hero');
-        showToast('Navigated to Top section');
-      }
+        scrollToSection("hero");
+        showToast("Navigated to Top section");
+      },
     },
     {
-      id: 'cmd-about',
-      title: 'Scroll to About',
-      description: 'Learn more about Shashintha Nimsara, experience, and background',
-      category: 'Navigation',
+      id: "cmd-about",
+      title: "Scroll to About",
+      description:
+        "Learn more about Shashintha Nimsara, experience, and background",
+      category: "Navigation",
       icon: <User className="w-4 h-4 text-emerald-400" />,
-      shortcut: 'Ctrl + Alt + A',
+      shortcut: "Ctrl + Alt + A",
       action: () => {
-        scrollToSection('about');
-        showToast('Navigated to About section');
-      }
+        scrollToSection("about");
+        showToast("Navigated to About section");
+      },
     },
     {
-      id: 'cmd-projects',
-      title: 'View Projects Showcase',
-      description: 'Explore full stack, AI, and systems engineering projects',
-      category: 'Showcase',
+      id: "cmd-projects",
+      title: "View Projects Showcase",
+      description: "Explore full stack, AI, and systems engineering projects",
+      category: "Showcase",
       icon: <FolderGit2 className="w-4 h-4 text-amber-400" />,
-      shortcut: 'Ctrl + Alt + P',
+      shortcut: "Ctrl + Alt + P",
       action: () => {
-        setActiveTab('projects');
-        scrollToSection('showcase');
-        showToast('Navigated to Projects Showcase');
-      }
+        setActiveTab("projects");
+        scrollToSection("showcase");
+        showToast("Navigated to Projects Showcase");
+      },
     },
     {
-      id: 'cmd-techstack',
-      title: 'View Tech Stack',
-      description: 'Browse frontend, backend, UI design, and cloud tools',
-      category: 'Showcase',
+      id: "cmd-techstack",
+      title: "View Tech Stack",
+      description: "Browse frontend, backend, UI design, and cloud tools",
+      category: "Showcase",
       icon: <Cpu className="w-4 h-4 text-sky-400" />,
-      shortcut: 'Ctrl + Alt + T',
+      shortcut: "Ctrl + Alt + T",
       action: () => {
-        setActiveTab('techstack');
-        scrollToSection('showcase');
-        showToast('Navigated to Tech Stack');
-      }
+        setActiveTab("techstack");
+        scrollToSection("showcase");
+        showToast("Navigated to Tech Stack");
+      },
     },
     {
-      id: 'cmd-certificates',
-      title: 'View Certifications',
-      description: 'Check verified cloud, frontend, and security credentials',
-      category: 'Showcase',
+      id: "cmd-certificates",
+      title: "View Certifications",
+      description: "Check verified cloud, frontend, and security credentials",
+      category: "Showcase",
       icon: <Award className="w-4 h-4 text-purple-400" />,
       action: () => {
-        setActiveTab('certificates');
-        scrollToSection('showcase');
-        showToast('Navigated to Certifications');
-      }
+        setActiveTab("certificates");
+        scrollToSection("showcase");
+        showToast("Navigated to Certifications");
+      },
     },
     {
-      id: 'cmd-guestbook',
-      title: 'Scroll to Guestbook',
-      description: 'Read community testimonials or leave a signature',
-      category: 'Navigation',
+      id: "cmd-guestbook",
+      title: "Scroll to Guestbook",
+      description: "Read community testimonials or leave a signature",
+      category: "Navigation",
       icon: <MessageSquare className="w-4 h-4 text-pink-400" />,
-      shortcut: 'Ctrl + Alt + G',
+      shortcut: "Ctrl + Alt + G",
       action: () => {
-        scrollToSection('guestbook');
-        showToast('Navigated to Guestbook');
-      }
+        scrollToSection("guestbook");
+        showToast("Navigated to Guestbook");
+      },
     },
     {
-      id: 'cmd-contact',
-      title: 'Scroll to Contact Form',
-      description: 'Send a direct inquiry or project collaboration request',
-      category: 'Navigation',
+      id: "cmd-contact",
+      title: "Scroll to Contact Form",
+      description: "Send a direct inquiry or project collaboration request",
+      category: "Navigation",
       icon: <Mail className="w-4 h-4 text-rose-400" />,
-      shortcut: 'Ctrl + Alt + C',
+      shortcut: "Ctrl + Alt + C",
       action: () => {
-        scrollToSection('contact');
-        showToast('Navigated to Contact');
-      }
+        scrollToSection("contact");
+        showToast("Navigated to Contact");
+      },
     },
     {
-      id: 'cmd-resume',
-      title: 'Open Professional Resume',
-      description: 'View or download PDF copy of work history & skills',
-      category: 'Actions',
+      id: "cmd-resume",
+      title: "Open Professional Resume",
+      description: "View or download PDF copy of work history & skills",
+      category: "Actions",
       icon: <FileText className="w-4 h-4 text-indigo-400" />,
-      shortcut: 'Ctrl + Alt + R',
+      shortcut: "Ctrl + Alt + R",
       action: () => {
         setIsResumeModalOpen(true);
-        showToast('Opened Resume Modal');
-      }
+        showToast("Opened Resume Modal");
+      },
     },
     {
-      id: 'cmd-toggle-portrait',
-      title: 'Toggle 3D Badge Avatar Mode',
-      description: 'Switch between monochrome glow & vibrant portrait avatar',
-      category: 'Actions',
+      id: "cmd-toggle-portrait",
+      title: "Toggle 3D Badge Avatar Mode",
+      description: "Switch between monochrome glow & vibrant portrait avatar",
+      category: "Actions",
       icon: <Sparkles className="w-4 h-4 text-amber-400" />,
       action: () => {
-        setIsPortraitColorMode(prev => !prev);
-        showToast(`Avatar mode: ${!isPortraitColorMode ? 'Vibrant Color' : 'Monochrome'}`);
-      }
-    }
+        setIsPortraitColorMode((prev) => !prev);
+        showToast(
+          `Avatar mode: ${!isPortraitColorMode ? "Vibrant Color" : "Monochrome"}`,
+        );
+      },
+    },
   ];
 
-  const filteredCommands = commandsList.filter(cmd =>
-    cmd.title.toLowerCase().includes(commandQuery.toLowerCase()) ||
-    cmd.description.toLowerCase().includes(commandQuery.toLowerCase()) ||
-    cmd.category.toLowerCase().includes(commandQuery.toLowerCase())
+  const filteredCommands = commandsList.filter(
+    (cmd) =>
+      cmd.title.toLowerCase().includes(commandQuery.toLowerCase()) ||
+      cmd.description.toLowerCase().includes(commandQuery.toLowerCase()) ||
+      cmd.category.toLowerCase().includes(commandQuery.toLowerCase()),
   );
 
   const handlePaletteKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'ArrowDown') {
+    if (e.key === "ArrowDown") {
       e.preventDefault();
-      setCommandSelectedIndex(prev => (prev + 1) % Math.max(1, filteredCommands.length));
-    } else if (e.key === 'ArrowUp') {
+      setCommandSelectedIndex(
+        (prev) => (prev + 1) % Math.max(1, filteredCommands.length),
+      );
+    } else if (e.key === "ArrowUp") {
       e.preventDefault();
-      setCommandSelectedIndex(prev => (prev - 1 + filteredCommands.length) % Math.max(1, filteredCommands.length));
-    } else if (e.key === 'Enter') {
+      setCommandSelectedIndex(
+        (prev) =>
+          (prev - 1 + filteredCommands.length) %
+          Math.max(1, filteredCommands.length),
+      );
+    } else if (e.key === "Enter") {
       e.preventDefault();
       if (filteredCommands.length > 0) {
-        const selectedCmd = filteredCommands[commandSelectedIndex] || filteredCommands[0];
+        const selectedCmd =
+          filteredCommands[commandSelectedIndex] || filteredCommands[0];
         if (selectedCmd) {
           selectedCmd.action();
           setIsCommandPaletteOpen(false);
         }
       }
-    } else if (e.key === 'Escape') {
+    } else if (e.key === "Escape") {
       e.preventDefault();
       setIsCommandPaletteOpen(false);
     }
@@ -471,10 +510,10 @@ export default function App() {
 
     // Preloader interval
     const messages = [
-      'Welcome to my Portfolio Website...',
-      'Loading dark minimalist aesthetics...',
-      'Initializing 3D hero badge...',
-      'Portfolio ready!'
+      "Welcome to my Portfolio Website...",
+      "Loading dark minimalist aesthetics...",
+      "Initializing 3D hero badge...",
+      "Portfolio ready!",
     ];
     let step = 0;
     const interval = setInterval(() => {
@@ -496,7 +535,7 @@ export default function App() {
     }, 280);
 
     // Load Guestbook
-    const saved = localStorage.getItem('nimsara_portfolio_guestbook');
+    const saved = localStorage.getItem("nimsara_portfolio_guestbook");
     if (saved) {
       try {
         setGuestbookComments(JSON.parse(saved));
@@ -515,8 +554,8 @@ export default function App() {
     const handleMouseMove = (e: globalThis.MouseEvent) => {
       setAmbientPos({ x: e.clientX, y: e.clientY });
     };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
   // Keyboard navigation for Modals
@@ -525,64 +564,75 @@ export default function App() {
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (selectedProjectKey) {
-        if (e.key === 'Escape') {
+        if (e.key === "Escape") {
           e.preventDefault();
           setSelectedProjectKey(null);
-        } else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+        } else if (e.key === "ArrowRight" || e.key === "ArrowDown") {
           e.preventDefault();
           const currentIdx = projectKeys.indexOf(selectedProjectKey);
           const nextIdx = (currentIdx + 1) % projectKeys.length;
           setSelectedProjectKey(projectKeys[nextIdx]);
-        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
           e.preventDefault();
           const currentIdx = projectKeys.indexOf(selectedProjectKey);
-          const prevIdx = (currentIdx - 1 + projectKeys.length) % projectKeys.length;
+          const prevIdx =
+            (currentIdx - 1 + projectKeys.length) % projectKeys.length;
           setSelectedProjectKey(projectKeys[prevIdx]);
         }
       } else if (isResumeModalOpen) {
-        if (e.key === 'Escape') {
+        if (e.key === "Escape") {
           e.preventDefault();
           setIsResumeModalOpen(false);
         }
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, [selectedProjectKey, isResumeModalOpen]);
 
   // Filter projects list
-  const projectList = Object.values(PROJECTS_DATA).filter(p => {
-    if (selectedCategory === 'all') return true;
+  const projectList = Object.values(PROJECTS_DATA).filter((p) => {
+    if (selectedCategory === "all") return true;
     return p.categoryGroup === selectedCategory;
   });
 
   const projectKeys = Object.keys(PROJECTS_DATA);
-  const currentProject = selectedProjectKey ? PROJECTS_DATA[selectedProjectKey] : null;
-  const currentProjectIndex = selectedProjectKey ? projectKeys.indexOf(selectedProjectKey) : 0;
-  const readStats = currentProject ? calculateReadingTime(currentProject.desc, currentProject.highlights) : null;
+  const currentProject = selectedProjectKey
+    ? PROJECTS_DATA[selectedProjectKey]
+    : null;
+  const currentProjectIndex = selectedProjectKey
+    ? projectKeys.indexOf(selectedProjectKey)
+    : 0;
+  const readStats = currentProject
+    ? calculateReadingTime(currentProject.desc, currentProject.highlights)
+    : null;
 
   return (
     <div className="bg-black text-white relative min-h-dvh selection:bg-white selection:text-black antialiased">
-
       {/* Background Grid Mesh */}
       <div className="fixed inset-0 bg-grid-pattern opacity-80 pointer-events-none z-0"></div>
 
       {/* 1. PRELOADER OVERLAY */}
       <div
-        className={`fixed inset-0 bg-[#000000] z-[100] flex flex-col items-center justify-center p-6 select-none transition-all duration-500 ${isLoadingPreloader ? 'opacity-100' : 'opacity-0 pointer-events-none'
-          }`}
+        className={`fixed inset-0 bg-[#000000] z-[100] flex flex-col items-center justify-center p-6 select-none transition-all duration-500 ${
+          isLoadingPreloader ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
       >
         <div className="max-w-md w-full flex flex-col items-center text-center">
           <div className="w-16 h-16 rounded-2xl bg-[#121215] border border-[#27272a] flex items-center justify-center mb-6 shadow-2xl relative overflow-hidden">
-            <span className="text-2xl font-extrabold tracking-tighter text-white">AR</span>
+            <span className="text-2xl font-extrabold tracking-tighter text-white">
+              SN
+            </span>
             <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500/10 to-transparent"></div>
           </div>
 
           <h2 className="text-lg md:text-xl font-medium text-white mb-2 tracking-wide min-h-[28px]">
             {preloaderMessage}
           </h2>
-          <p className="text-xs text-zinc-500 mb-8 tracking-widest uppercase font-mono">Initializing Experience</p>
+          <p className="text-xs text-zinc-500 mb-8 tracking-widest uppercase font-mono">
+            Initializing Experience
+          </p>
 
           <div className="w-full bg-[#18181b] h-1.5 rounded-full overflow-hidden border border-[#27272a] relative">
             <div
@@ -609,24 +659,41 @@ export default function App() {
             <div className="flex flex-col">
               <span className="font-bold text-sm tracking-tight text-white group-hover:text-zinc-300 transition-colors flex items-center gap-1.5">
                 Shashintha Nimsara
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" title="Available for work"></span>
+                <span
+                  className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"
+                  title="Available for work"
+                ></span>
               </span>
-              <span className="text-[10px] text-zinc-400 font-mono tracking-wider uppercase">full-stack developer</span>
+              <span className="text-[10px] text-zinc-400 font-mono tracking-wider uppercase">
+                full-stack developer
+              </span>
             </div>
           </a>
 
           {/* Desktop Nav Links */}
           <div className="hidden md:flex items-center gap-1 bg-[#121215]/80 p-1.5 rounded-xl border border-[#27272a]/60 text-xs font-medium">
-            <a href="#about" className="px-4 py-2 rounded-lg text-zinc-400 hover:text-white hover:bg-[#1f1f23] transition-all">
+            <a
+              href="#about"
+              className="px-4 py-2 rounded-lg text-zinc-400 hover:text-white hover:bg-[#1f1f23] transition-all"
+            >
               About
             </a>
-            <a href="#showcase" className="px-4 py-2 rounded-lg text-zinc-400 hover:text-white hover:bg-[#1f1f23] transition-all">
+            <a
+              href="#showcase"
+              className="px-4 py-2 rounded-lg text-zinc-400 hover:text-white hover:bg-[#1f1f23] transition-all"
+            >
               Showcase
             </a>
-            <a href="#contact" className="px-4 py-2 rounded-lg text-zinc-400 hover:text-white hover:bg-[#1f1f23] transition-all">
+            <a
+              href="#contact"
+              className="px-4 py-2 rounded-lg text-zinc-400 hover:text-white hover:bg-[#1f1f23] transition-all"
+            >
               Contact
             </a>
-            <a href="#guestbook" className="px-4 py-2 rounded-lg text-zinc-400 hover:text-white hover:bg-[#1f1f23] transition-all">
+            <a
+              href="#guestbook"
+              className="px-4 py-2 rounded-lg text-zinc-400 hover:text-white hover:bg-[#1f1f23] transition-all"
+            >
               Guestbook
             </a>
           </div>
@@ -639,8 +706,12 @@ export default function App() {
               title="Open Command Palette (Ctrl+K)"
             >
               <Command className="w-3.5 h-3.5 text-indigo-400" />
-              <span className="hidden lg:inline text-xs font-sans font-medium text-zinc-200">Commands</span>
-              <kbd className="hidden sm:inline-block px-1.5 py-0.5 rounded bg-[#27272a] text-[10px] font-mono text-zinc-400 border border-white/10">⌘K</kbd>
+              <span className="hidden lg:inline text-xs font-sans font-medium text-zinc-200">
+                Commands
+              </span>
+              <kbd className="hidden sm:inline-block px-1.5 py-0.5 rounded bg-[#27272a] text-[10px] font-mono text-zinc-400 border border-white/10">
+                ⌘K
+              </kbd>
             </button>
 
             <button
@@ -655,7 +726,11 @@ export default function App() {
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="md:hidden w-9 h-9 rounded-xl bg-[#18181b] border border-[#27272a] flex items-center justify-center text-zinc-400 hover:text-white"
             >
-              {isMobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+              {isMobileMenuOpen ? (
+                <X className="w-4 h-4" />
+              ) : (
+                <Menu className="w-4 h-4" />
+              )}
             </button>
           </div>
         </nav>
@@ -720,7 +795,7 @@ export default function App() {
       {/* MAIN CONTAINER */}
       <main className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* 3. HERO SECTION */}
-        <Hero/>
+        <Hero />
 
         {/* ABOUT / BIO DETAIL SECTION */}
         <About />
@@ -729,11 +804,16 @@ export default function App() {
         <section id="showcase" className="py-20 border-t border-[#27272a]/80">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
             <div>
-              <div className="text-xs font-mono text-zinc-500 tracking-widest uppercase mb-2">// EXPLORE MY WORK</div>
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Interactive Showcase</h2>
+              <div className="text-xs font-mono text-zinc-500 tracking-widest uppercase mb-2">
+                // EXPLORE MY WORK
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+                Interactive Showcase
+              </h2>
             </div>
             <p className="text-xs text-zinc-400 max-w-sm leading-relaxed">
-              Switch between projects, technical skills, and verified credentials using the interactive navigation tabs below.
+              Switch between projects, technical skills, and verified
+              credentials using the interactive navigation tabs below.
             </p>
           </div>
 
@@ -741,82 +821,99 @@ export default function App() {
           <div className="flex justify-center mb-8 sm:mb-10 w-full px-1">
             <div className="grid grid-cols-3 sm:flex p-1.5 rounded-2xl bg-[#121215] border border-[#27272a] shadow-xl text-xs font-medium w-full max-w-xl sm:w-auto gap-1">
               <button
-                onClick={() => setActiveTab('projects')}
-                className={`px-2 sm:px-6 py-2.5 sm:py-3 rounded-xl transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 text-[11px] sm:text-xs text-center ${activeTab === 'projects'
-                  ? 'bg-white text-black font-semibold shadow-md'
-                  : 'text-zinc-400 hover:text-white'
-                  }`}
+                onClick={() => setActiveTab("projects")}
+                className={`px-2 sm:px-6 py-2.5 sm:py-3 rounded-xl transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 text-[11px] sm:text-xs text-center ${
+                  activeTab === "projects"
+                    ? "bg-white text-black font-semibold shadow-md"
+                    : "text-zinc-400 hover:text-white"
+                }`}
               >
                 <FolderGit2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
                 <span className="truncate">Projects</span>
-                <span className={`px-1.5 py-0.5 rounded-full text-[10px] hidden xs:inline-block sm:inline-block ${activeTab === 'projects' ? 'bg-black/10' : 'bg-[#18181b] border border-[#27272a]'}`}>
+                <span
+                  className={`px-1.5 py-0.5 rounded-full text-[10px] hidden xs:inline-block sm:inline-block ${activeTab === "projects" ? "bg-black/10" : "bg-[#18181b] border border-[#27272a]"}`}
+                >
                   6
                 </span>
               </button>
 
               <button
-                onClick={() => setActiveTab('techstack')}
-                className={`px-2 sm:px-6 py-2.5 sm:py-3 rounded-xl transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 text-[11px] sm:text-xs text-center ${activeTab === 'techstack'
-                  ? 'bg-white text-black font-semibold shadow-md'
-                  : 'text-zinc-400 hover:text-white'
-                  }`}
+                onClick={() => setActiveTab("techstack")}
+                className={`px-2 sm:px-6 py-2.5 sm:py-3 rounded-xl transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 text-[11px] sm:text-xs text-center ${
+                  activeTab === "techstack"
+                    ? "bg-white text-black font-semibold shadow-md"
+                    : "text-zinc-400 hover:text-white"
+                }`}
               >
                 <Cpu className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
                 <span className="truncate">Tech Stack</span>
-                <span className={`px-1.5 py-0.5 rounded-full text-[10px] hidden xs:inline-block sm:inline-block ${activeTab === 'techstack' ? 'bg-black/10' : 'bg-[#18181b] border border-[#27272a]'}`}>
-                  16
+                <span
+                  className={`px-1.5 py-0.5 rounded-full text-[10px] hidden xs:inline-block sm:inline-block ${activeTab === "techstack" ? "bg-black/10" : "bg-[#18181b] border border-[#27272a]"}`}
+                >
+                  17
                 </span>
               </button>
 
               <button
-                onClick={() => setActiveTab('certificates')}
-                className={`px-2 sm:px-6 py-2.5 sm:py-3 rounded-xl transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 text-[11px] sm:text-xs text-center ${activeTab === 'certificates'
-                  ? 'bg-white text-black font-semibold shadow-md'
-                  : 'text-zinc-400 hover:text-white'
-                  }`}
+                onClick={() => setActiveTab("certificates")}
+                className={`px-2 sm:px-6 py-2.5 sm:py-3 rounded-xl transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 text-[11px] sm:text-xs text-center ${
+                  activeTab === "certificates"
+                    ? "bg-white text-black font-semibold shadow-md"
+                    : "text-zinc-400 hover:text-white"
+                }`}
               >
                 <Award className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
                 <span className="truncate">Certificates</span>
-                <span className={`px-1.5 py-0.5 rounded-full text-[10px] hidden xs:inline-block sm:inline-block ${activeTab === 'certificates' ? 'bg-black/10' : 'bg-[#18181b] border border-[#27272a]'}`}>
-                  4
+                <span
+                  className={`px-1.5 py-0.5 rounded-full text-[10px] hidden xs:inline-block sm:inline-block ${activeTab === "certificates" ? "bg-black/10" : "bg-[#18181b] border border-[#27272a]"}`}
+                >
+                  1
                 </span>
               </button>
             </div>
           </div>
 
           {/* TAB CONTENT 1: PROJECTS VIEW */}
-          {activeTab === 'projects' && (
+          {activeTab === "projects" && (
             <div className="space-y-8 animate-in fade-in duration-300">
               {/* Category Filter Sub-pills */}
               <div className="flex items-center justify-center gap-1.5 sm:gap-2 flex-wrap text-xs font-mono px-2">
-                {(['all', 'web', 'ai', 'system'] as const).map(cat => (
+                {(["all", "web", "ai", "system"] as const).map((cat) => (
                   <button
                     key={cat}
                     onClick={() => setSelectedCategory(cat)}
-                    className={`px-3 py-1.5 rounded-lg transition-all capitalize text-[11px] sm:text-xs ${selectedCategory === cat
-                      ? 'bg-[#18181b] border border-white/20 text-white font-semibold'
-                      : 'bg-[#121215] border border-[#27272a] text-zinc-400 hover:text-white hover:border-zinc-500'
-                      }`}
+                    className={`px-3 py-1.5 rounded-lg transition-all capitalize text-[11px] sm:text-xs ${
+                      selectedCategory === cat
+                        ? "bg-[#18181b] border border-white/20 text-white font-semibold"
+                        : "bg-[#121215] border border-[#27272a] text-zinc-400 hover:text-white hover:border-zinc-500"
+                    }`}
                   >
-                    {cat === 'all' ? 'All Projects' : cat === 'web' ? 'Web Apps' : cat === 'ai' ? 'AI & Data' : 'Design Systems'}
+                    {cat === "all"
+                      ? "All Projects"
+                      : cat === "web"
+                        ? "Web Apps"
+                        : cat === "ai"
+                          ? "AI & Data"
+                          : "Design Systems"}
                   </button>
                 ))}
               </div>
 
               {/* Projects Cards Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-                {projectList.map(project => (
+                {projectList.map((project) => (
                   <div
                     key={project.id}
                     onClick={() => setSelectedProjectKey(project.id)}
                     className="project-card glass-card rounded-2xl border border-[#27272a] overflow-hidden flex flex-col group hover:border-zinc-400 active:scale-[0.98] active:border-indigo-500/50 transition-all duration-200 cursor-pointer select-none"
                   >
                     <div className="relative h-44 sm:h-48 overflow-hidden bg-[#18181b]">
-                      <img
-                        src={project.img}
-                        alt={project.title}
-                        referrerPolicy="no-referrer"
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100"
+                      <iframe
+                        src={project.link}
+                        title={project.title}
+                        sandbox="allow-scripts allow-same-origin"
+                        loading="lazy"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100 pointer-events-none border-0"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-[#121215] via-transparent to-transparent"></div>
                       <span className="absolute top-3 right-3 px-2.5 py-1 rounded-md bg-black/80 backdrop-blur-md border border-white/10 text-[10px] font-mono text-emerald-400">
@@ -829,12 +926,17 @@ export default function App() {
                         <h3 className="text-base font-bold text-white group-hover:text-indigo-300 transition-colors">
                           {project.title}
                         </h3>
-                        <p className="text-xs text-zinc-400 leading-relaxed line-clamp-2">{project.desc}</p>
+                        <p className="text-xs text-zinc-400 leading-relaxed line-clamp-2">
+                          {project.desc}
+                        </p>
                       </div>
 
                       <div className="flex flex-wrap gap-1.5">
-                        {project.tags.map(t => (
-                          <span key={t} className="px-2 py-0.5 rounded bg-[#18181b] border border-[#27272a] text-[10px] font-mono text-zinc-300">
+                        {project.tags.map((t) => (
+                          <span
+                            key={t}
+                            className="px-2 py-0.5 rounded bg-[#18181b] border border-[#27272a] text-[10px] font-mono text-zinc-300"
+                          >
                             {t}
                           </span>
                         ))}
@@ -842,7 +944,7 @@ export default function App() {
 
                       <div className="pt-3 border-t border-[#27272a] flex items-center justify-between">
                         <button
-                          onClick={e => {
+                          onClick={(e) => {
                             e.stopPropagation();
                             setSelectedProjectKey(project.id);
                           }}
@@ -855,7 +957,7 @@ export default function App() {
                           href={project.link}
                           target="_blank"
                           rel="noopener noreferrer"
-                          onClick={e => e.stopPropagation()}
+                          onClick={(e) => e.stopPropagation()}
                           className="text-xs text-zinc-500 hover:text-white flex items-center gap-1 font-mono py-1 px-2"
                         >
                           <FolderGit2 className="w-3.5 h-3.5" />
@@ -870,7 +972,7 @@ export default function App() {
           )}
 
           {/* TAB CONTENT 2: TECH STACK VIEW */}
-          {activeTab === 'techstack' && (
+          {activeTab === "techstack" && (
             <div className="space-y-10 animate-in fade-in duration-300">
               {/* Category 1: Core Frontend */}
               <div>
@@ -883,48 +985,72 @@ export default function App() {
                     <div className="w-10 h-10 rounded-lg bg-[#18181b] flex items-center justify-center text-sky-400 mb-2 group-hover:bg-sky-950/40">
                       <Atom className="w-6 h-6" />
                     </div>
-                    <span className="text-xs font-bold text-white">React 19</span>
-                    <span className="text-[10px] text-zinc-500 font-mono mt-1">Expert • 4 yrs</span>
+                    <span className="text-xs font-bold text-white">
+                      React 19
+                    </span>
+                    <span className="text-[10px] text-zinc-500 font-mono mt-1">
+                      Expert • 4 yrs
+                    </span>
                   </div>
 
                   <div className="glass-card p-4 rounded-xl border border-[#27272a] flex flex-col items-center text-center group hover:border-zinc-400 hover:scale-105 transition-all">
                     <div className="w-10 h-10 rounded-lg bg-[#18181b] flex items-center justify-center text-blue-400 mb-2 group-hover:bg-blue-950/40">
                       <FileCode2 className="w-6 h-6" />
                     </div>
-                    <span className="text-xs font-bold text-white">TypeScript</span>
-                    <span className="text-[10px] text-zinc-500 font-mono mt-1">Advanced</span>
+                    <span className="text-xs font-bold text-white">
+                      TypeScript
+                    </span>
+                    <span className="text-[10px] text-zinc-500 font-mono mt-1">
+                      Advanced
+                    </span>
                   </div>
 
                   <div className="glass-card p-4 rounded-xl border border-[#27272a] flex flex-col items-center text-center group hover:border-zinc-400 hover:scale-105 transition-all">
                     <div className="w-10 h-10 rounded-lg bg-[#18181b] flex items-center justify-center text-yellow-400 mb-2 group-hover:bg-yellow-950/40">
                       <FileJson className="w-6 h-6" />
                     </div>
-                    <span className="text-xs font-bold text-white">JavaScript ES6+</span>
-                    <span className="text-[10px] text-zinc-500 font-mono mt-1">Expert</span>
+                    <span className="text-xs font-bold text-white">
+                      JavaScript ES6+
+                    </span>
+                    <span className="text-[10px] text-zinc-500 font-mono mt-1">
+                      Expert
+                    </span>
                   </div>
 
                   <div className="glass-card p-4 rounded-xl border border-[#27272a] flex flex-col items-center text-center group hover:border-zinc-400 hover:scale-105 transition-all">
                     <div className="w-10 h-10 rounded-lg bg-[#18181b] flex items-center justify-center text-white mb-2 group-hover:bg-zinc-800">
                       <Globe className="w-6 h-6" />
                     </div>
-                    <span className="text-xs font-bold text-white">Next.js 15</span>
-                    <span className="text-[10px] text-zinc-500 font-mono mt-1">Advanced</span>
+                    <span className="text-xs font-bold text-white">
+                      Next.js 15
+                    </span>
+                    <span className="text-[10px] text-zinc-500 font-mono mt-1">
+                      Advanced
+                    </span>
                   </div>
 
                   <div className="glass-card p-4 rounded-xl border border-[#27272a] flex flex-col items-center text-center group hover:border-zinc-400 hover:scale-105 transition-all">
                     <div className="w-10 h-10 rounded-lg bg-[#18181b] flex items-center justify-center text-orange-400 mb-2 group-hover:bg-orange-950/40">
                       <Code className="w-6 h-6" />
                     </div>
-                    <span className="text-xs font-bold text-white">HTML5 / CSS3</span>
-                    <span className="text-[10px] text-zinc-500 font-mono mt-1">Expert</span>
+                    <span className="text-xs font-bold text-white">
+                      HTML5 / CSS3
+                    </span>
+                    <span className="text-[10px] text-zinc-500 font-mono mt-1">
+                      Expert
+                    </span>
                   </div>
 
                   <div className="glass-card p-4 rounded-xl border border-[#27272a] flex flex-col items-center text-center group hover:border-zinc-400 hover:scale-105 transition-all">
                     <div className="w-10 h-10 rounded-lg bg-[#18181b] flex items-center justify-center text-purple-400 mb-2 group-hover:bg-purple-950/40">
                       <Layers className="w-6 h-6" />
                     </div>
-                    <span className="text-xs font-bold text-white">State Management</span>
-                    <span className="text-[10px] text-zinc-500 font-mono mt-1">Redux / Zustand</span>
+                    <span className="text-xs font-bold text-white">
+                      State Management
+                    </span>
+                    <span className="text-[10px] text-zinc-500 font-mono mt-1">
+                      Redux / Zustand
+                    </span>
                   </div>
                 </div>
               </div>
@@ -940,40 +1066,70 @@ export default function App() {
                     <div className="w-10 h-10 rounded-lg bg-[#18181b] flex items-center justify-center text-cyan-400 mb-2">
                       <Palette className="w-6 h-6" />
                     </div>
-                    <span className="text-xs font-bold text-white">Tailwind CSS v4</span>
-                    <span className="text-[10px] text-zinc-500 font-mono mt-1">Expert</span>
+                    <span className="text-xs font-bold text-white">
+                      Tailwind CSS v4
+                    </span>
+                    <span className="text-[10px] text-zinc-500 font-mono mt-1">
+                      Expert
+                    </span>
                   </div>
 
                   <div className="glass-card p-4 rounded-xl border border-[#27272a] flex flex-col items-center text-center group hover:border-zinc-400 hover:scale-105 transition-all">
                     <div className="w-10 h-10 rounded-lg bg-[#18181b] flex items-center justify-center text-pink-400 mb-2">
                       <Sparkles className="w-6 h-6" />
                     </div>
-                    <span className="text-xs font-bold text-white">Framer Motion</span>
-                    <span className="text-[10px] text-zinc-500 font-mono mt-1">Advanced</span>
+                    <span className="text-xs font-bold text-white">
+                      Framer Motion
+                    </span>
+                    <span className="text-[10px] text-zinc-500 font-mono mt-1">
+                      Advanced
+                    </span>
                   </div>
 
                   <div className="glass-card p-4 rounded-xl border border-[#27272a] flex flex-col items-center text-center group hover:border-zinc-400 hover:scale-105 transition-all">
                     <div className="w-10 h-10 rounded-lg bg-[#18181b] flex items-center justify-center text-[#f34f1c] mb-2">
                       <SquareSigma className="w-6 h-6" />
                     </div>
-                    <span className="text-xs font-bold text-white">Figma & UI Systems</span>
-                    <span className="text-[10px] text-zinc-500 font-mono mt-1">Design Ops</span>
+                    <span className="text-xs font-bold text-white">
+                      Figma & UI Systems
+                    </span>
+                    <span className="text-[10px] text-zinc-500 font-mono mt-1">
+                      Design Ops
+                    </span>
                   </div>
 
                   <div className="glass-card p-4 rounded-xl border border-[#27272a] flex flex-col items-center text-center group hover:border-zinc-400 hover:scale-105 transition-all">
                     <div className="w-10 h-10 rounded-lg bg-[#18181b] flex items-center justify-center text-emerald-400 mb-2">
                       <Eye className="w-6 h-6" />
                     </div>
-                    <span className="text-xs font-bold text-white">Web Accessibility</span>
-                    <span className="text-[10px] text-zinc-500 font-mono mt-1">WCAG 2.1 AA</span>
+                    <span className="text-xs font-bold text-white">
+                      Web Accessibility
+                    </span>
+                    <span className="text-[10px] text-zinc-500 font-mono mt-1">
+                      WCAG 2.1 AA
+                    </span>
                   </div>
 
                   <div className="glass-card p-4 rounded-xl border border-[#27272a] flex flex-col items-center text-center group hover:border-zinc-400 hover:scale-105 transition-all">
                     <div className="w-10 h-10 rounded-lg bg-[#18181b] flex items-center justify-center text-amber-400 mb-2">
                       <Component className="w-6 h-6" />
                     </div>
-                    <span className="text-xs font-bold text-white">Shadcn / Radix</span>
-                    <span className="text-[10px] text-zinc-500 font-mono mt-1">Advanced</span>
+                    <span className="text-xs font-bold text-white">
+                      Shadcn / Radix
+                    </span>
+                    <span className="text-[10px] text-zinc-500 font-mono mt-1">
+                      Advanced
+                    </span>
+                  </div>
+
+                  <div className="glass-card p-4 rounded-xl border border-[#27272a] flex flex-col items-center text-center group hover:border-zinc-400 hover:scale-105 transition-all">
+                    <div className="w-10 h-10 rounded-lg bg-[#18181b] flex items-center justify-center text-green-400 mb-2">
+                      <Brain className="w-6 h-6" />
+                    </div>
+                    <span className="text-xs font-bold text-white">GSAP</span>
+                    <span className="text-[10px] text-zinc-500 font-mono mt-1">
+                      FLUENT
+                    </span>
                   </div>
                 </div>
               </div>
@@ -989,40 +1145,60 @@ export default function App() {
                     <div className="w-10 h-10 rounded-lg bg-[#18181b] flex items-center justify-center text-emerald-500 mb-2">
                       <Server className="w-6 h-6" />
                     </div>
-                    <span className="text-xs font-bold text-white">Node.js & Express</span>
-                    <span className="text-[10px] text-zinc-500 font-mono mt-1">Proficient</span>
+                    <span className="text-xs font-bold text-white">
+                      Node.js & Express
+                    </span>
+                    <span className="text-[10px] text-zinc-500 font-mono mt-1">
+                      Proficient
+                    </span>
                   </div>
 
                   <div className="glass-card p-4 rounded-xl border border-[#27272a] flex flex-col items-center text-center group hover:border-zinc-400 hover:scale-105 transition-all">
                     <div className="w-10 h-10 rounded-lg bg-[#18181b] flex items-center justify-center text-yellow-300 mb-2">
                       <Zap className="w-6 h-6" />
                     </div>
-                    <span className="text-xs font-bold text-white">Vite & Bundling</span>
-                    <span className="text-[10px] text-zinc-500 font-mono mt-1">Expert</span>
+                    <span className="text-xs font-bold text-white">
+                      Vite & Bundling
+                    </span>
+                    <span className="text-[10px] text-zinc-500 font-mono mt-1">
+                      Expert
+                    </span>
                   </div>
 
                   <div className="glass-card p-4 rounded-xl border border-[#27272a] flex flex-col items-center text-center group hover:border-zinc-400 hover:scale-105 transition-all">
                     <div className="w-10 h-10 rounded-lg bg-[#18181b] flex items-center justify-center text-orange-500 mb-2">
                       <GitBranch className="w-6 h-6" />
                     </div>
-                    <span className="text-xs font-bold text-white">Git & GitHub</span>
-                    <span className="text-[10px] text-zinc-500 font-mono mt-1">CI/CD Workflows</span>
+                    <span className="text-xs font-bold text-white">
+                      Git & GitHub
+                    </span>
+                    <span className="text-[10px] text-zinc-500 font-mono mt-1">
+                      CI/CD Workflows
+                    </span>
                   </div>
 
                   <div className="glass-card p-4 rounded-xl border border-[#27272a] flex flex-col items-center text-center group hover:border-zinc-400 hover:scale-105 transition-all">
                     <div className="w-10 h-10 rounded-lg bg-[#18181b] flex items-center justify-center text-blue-500 mb-2">
                       <Database className="w-6 h-6" />
                     </div>
-                    <span className="text-xs font-bold text-white">REST & GraphQL</span>
-                    <span className="text-[10px] text-zinc-500 font-mono mt-1">API Integration</span>
+                    <span className="text-xs font-bold text-white">
+                      MySQL / SUPABASE
+                    </span>
+                    <span className="text-[10px] text-zinc-500 font-mono mt-1">
+                      Expert
+                    </span>
                   </div>
 
                   <div className="glass-card p-4 rounded-xl border border-[#27272a] flex flex-col items-center text-center group hover:border-zinc-400 hover:scale-105 transition-all">
                     <div className="w-10 h-10 rounded-lg bg-[#18181b] flex items-center justify-center text-sky-300 mb-2">
                       <Container className="w-6 h-6" />
                     </div>
-                    <span className="text-xs font-bold text-white">Docker / Containers</span>
-                    <span className="text-[10px] text-zinc-500 font-mono mt-1">Foundational</span>
+                    <span className="text-xs font-bold text-white">
+                      Docker / Containers
+                    </span>
+                    <span className="text-[10px] text-zinc-500 font-mono mt-1">
+                      Foundational
+                    </span>
                   </div>
                 </div>
               </div>
@@ -1030,26 +1206,38 @@ export default function App() {
           )}
 
           {/* TAB CONTENT 3: CERTIFICATES VIEW */}
-          {activeTab === 'certificates' && (
+          {activeTab === "certificates" && (
             <div className="space-y-6 animate-in fade-in duration-300">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="glass-card p-6 rounded-2xl border border-[#27272a] flex flex-col sm:flex-row items-start gap-4 hover:border-zinc-400 transition-all">
+                {/* <div className="glass-card p-6 rounded-2xl border border-[#27272a] flex flex-col sm:flex-row items-start gap-4 hover:border-zinc-400 transition-all">
                   <div className="w-12 h-12 rounded-xl bg-[#18181b] border border-[#27272a] flex items-center justify-center text-white shrink-0">
                     <ShieldCheck className="w-6 h-6 text-emerald-400" />
                   </div>
                   <div className="space-y-2 flex-1">
                     <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider">META // COURSERA</span>
-                      <span className="text-[10px] font-mono text-emerald-400">Verified 2024</span>
+                      <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider">
+                        META // COURSERA
+                      </span>
+                      <span className="text-[10px] font-mono text-emerald-400">
+                        Verified 2024
+                      </span>
                     </div>
-                    <h3 className="text-base font-bold text-white">Meta Frontend Developer Professional Certificate</h3>
+                    <h3 className="text-base font-bold text-white">
+                      Meta Frontend Developer Professional Certificate
+                    </h3>
                     <p className="text-xs text-zinc-400 leading-relaxed">
-                      Comprehensive 9-course specialization covering advanced React, JavaScript algorithms, version control, responsive UI design, and web optimization.
+                      Comprehensive 9-course specialization covering advanced
+                      React, JavaScript algorithms, version control, responsive
+                      UI design, and web optimization.
                     </p>
                     <div className="pt-2 flex items-center justify-between text-xs">
-                      <span className="font-mono text-zinc-500 text-[11px]">ID: META-FE-983210</span>
+                      <span className="font-mono text-zinc-500 text-[11px]">
+                        ID: META-FE-983210
+                      </span>
                       <button
-                        onClick={() => showToast('Credential verified: Active status')}
+                        onClick={() =>
+                          showToast("Credential verified: Active status")
+                        }
                         className="text-xs font-semibold text-white hover:underline flex items-center gap-1"
                       >
                         <span>Verify Credentials</span>
@@ -1065,17 +1253,29 @@ export default function App() {
                   </div>
                   <div className="space-y-2 flex-1">
                     <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider">AMAZON WEB SERVICES</span>
-                      <span className="text-[10px] font-mono text-emerald-400">Verified 2023</span>
+                      <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider">
+                        AMAZON WEB SERVICES
+                      </span>
+                      <span className="text-[10px] font-mono text-emerald-400">
+                        Verified 2023
+                      </span>
                     </div>
-                    <h3 className="text-base font-bold text-white">AWS Certified Cloud Practitioner</h3>
+                    <h3 className="text-base font-bold text-white">
+                      AWS Certified Cloud Practitioner
+                    </h3>
                     <p className="text-xs text-zinc-400 leading-relaxed">
-                      Validated core cloud concepts, security practices, serverless deployment pipelines, and global CloudFront CDN routing.
+                      Validated core cloud concepts, security practices,
+                      serverless deployment pipelines, and global CloudFront CDN
+                      routing.
                     </p>
                     <div className="pt-2 flex items-center justify-between text-xs">
-                      <span className="font-mono text-zinc-500 text-[11px]">ID: AWS-CP-482019</span>
+                      <span className="font-mono text-zinc-500 text-[11px]">
+                        ID: AWS-CP-482019
+                      </span>
                       <button
-                        onClick={() => showToast('Credential verified: Active status')}
+                        onClick={() =>
+                          showToast("Credential verified: Active status")
+                        }
                         className="text-xs font-semibold text-white hover:underline flex items-center gap-1"
                       >
                         <span>Verify Credentials</span>
@@ -1091,17 +1291,29 @@ export default function App() {
                   </div>
                   <div className="space-y-2 flex-1">
                     <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider">FRONTEND MASTERS</span>
-                      <span className="text-[10px] font-mono text-emerald-400">Verified 2024</span>
+                      <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider">
+                        FRONTEND MASTERS
+                      </span>
+                      <span className="text-[10px] font-mono text-emerald-400">
+                        Verified 2024
+                      </span>
                     </div>
-                    <h3 className="text-base font-bold text-white">Advanced React & TypeScript Architecture</h3>
+                    <h3 className="text-base font-bold text-white">
+                      Advanced React & TypeScript Architecture
+                    </h3>
                     <p className="text-xs text-zinc-400 leading-relaxed">
-                      In-depth mastery of custom hook patterns, state machine orchestration, generics, render optimizations, and custom Vite build tooling.
+                      In-depth mastery of custom hook patterns, state machine
+                      orchestration, generics, render optimizations, and custom
+                      Vite build tooling.
                     </p>
                     <div className="pt-2 flex items-center justify-between text-xs">
-                      <span className="font-mono text-zinc-500 text-[11px]">ID: FM-REACT-TS-771</span>
+                      <span className="font-mono text-zinc-500 text-[11px]">
+                        ID: FM-REACT-TS-771
+                      </span>
                       <button
-                        onClick={() => showToast('Credential verified: Active status')}
+                        onClick={() =>
+                          showToast("Credential verified: Active status")
+                        }
                         className="text-xs font-semibold text-white hover:underline flex items-center gap-1"
                       >
                         <span>Verify Credentials</span>
@@ -1109,28 +1321,43 @@ export default function App() {
                       </button>
                     </div>
                   </div>
-                </div>
+                </div> */}
 
                 <div className="glass-card p-6 rounded-2xl border border-[#27272a] flex flex-col sm:flex-row items-start gap-4 hover:border-zinc-400 transition-all">
                   <div className="w-12 h-12 rounded-xl bg-[#18181b] border border-[#27272a] flex items-center justify-center text-white shrink-0">
-                    <Layout className="w-6 h-6 text-amber-400" />
+                    <GraduationCap className="w-6 h-6 text-amber-400" />
                   </div>
                   <div className="space-y-2 flex-1">
                     <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider">GOOGLE CAREER CERTIFICATES</span>
-                      <span className="text-[10px] font-mono text-emerald-400">Verified 2023</span>
+                      <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider">
+                        JAVA INSTITUTE & ACADEMIC CREDENTIALS
+                      </span>
+                      <span className="text-[10px] font-mono text-emerald-400">
+                        Graduated 2025 / Ongoing
+                      </span>
                     </div>
-                    <h3 className="text-base font-bold text-white">Google UX Design Professional Certificate</h3>
+                    <h3 className="text-base font-bold text-white">
+                      B.Sc. & Master’s in Software Engineering
+                    </h3>
                     <p className="text-xs text-zinc-400 leading-relaxed">
-                      End-to-end user experience process including wireframing, high-fidelity prototyping, accessibility testing, and design systems.
+                      Completed B.Sc. in Software Engineering (2025) and
+                      currently advancing expertise through the Master’s program
+                      at Java Institute, focusing on robust software
+                      architecture and system design.
                     </p>
                     <div className="pt-2 flex items-center justify-between text-xs">
-                      <span className="font-mono text-zinc-500 text-[11px]">ID: GGL-UX-204918</span>
+                      <span className="font-mono text-zinc-500 text-[11px]">
+                        INSTITUTE: Java Institute
+                      </span>
                       <button
-                        onClick={() => showToast('Credential verified: Active status')}
+                        onClick={() =>
+                          showToast(
+                            "Academic credentials verified: Active status",
+                          )
+                        }
                         className="text-xs font-semibold text-white hover:underline flex items-center gap-1"
                       >
-                        <span>Verify Credentials</span>
+                        <span>Verify Status</span>
                         <ExternalLink className="w-3 h-3" />
                       </button>
                     </div>
@@ -1142,7 +1369,7 @@ export default function App() {
         </section>
 
         {/* 5. CONTACT & GUESTBOOK SECTION */}
-        <ContactGuestbook/>
+        <ContactGuestbook />
       </main>
 
       {/* FOOTER */}
@@ -1152,7 +1379,10 @@ export default function App() {
             <div className="w-7 h-7 rounded-lg bg-[#18181b] border border-[#27272a] flex items-center justify-center font-bold text-white text-xs">
               SN
             </div>
-            <span>© {new Date().getFullYear()} Shashintha Nimsara. Designed & Developed with Dark Minimalist Craft.</span>
+            <span>
+              © {new Date().getFullYear()} Shashintha Nimsara. Designed &
+              Developed with Dark Minimalist Craft.
+            </span>
           </div>
 
           <div className="flex items-center gap-6 font-medium text-zinc-400">
@@ -1166,7 +1396,7 @@ export default function App() {
               Contact
             </a>
             <button
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
               className="hover:text-white transition-colors flex items-center gap-1"
             >
               <span>Back to Top</span>
@@ -1192,9 +1422,13 @@ export default function App() {
                   <Layers className="w-4 h-4" />
                 </div>
                 <div>
-                  <h3 className="text-base sm:text-lg font-bold text-white">{currentProject.title}</h3>
+                  <h3 className="text-base sm:text-lg font-bold text-white">
+                    {currentProject.title}
+                  </h3>
                   <div className="flex flex-wrap items-center gap-2 mt-0.5">
-                    <span className="text-[10px] font-mono text-zinc-500 uppercase">{currentProject.categoryLabel}</span>
+                    <span className="text-[10px] font-mono text-zinc-500 uppercase">
+                      {currentProject.categoryLabel}
+                    </span>
                     <span className="text-[10px] text-zinc-600">•</span>
                     <span className="text-[10px] font-mono text-indigo-400 bg-indigo-950/60 border border-indigo-500/30 px-2 py-0.5 rounded-full flex items-center gap-1">
                       <Clock className="w-3 h-3" />
@@ -1208,7 +1442,9 @@ export default function App() {
                 <div className="flex items-center gap-1 bg-[#18181b] border border-[#27272a] rounded-xl p-1">
                   <button
                     onClick={() => {
-                      const prevIdx = (currentProjectIndex - 1 + projectKeys.length) % projectKeys.length;
+                      const prevIdx =
+                        (currentProjectIndex - 1 + projectKeys.length) %
+                        projectKeys.length;
                       setSelectedProjectKey(projectKeys[prevIdx]);
                     }}
                     className="w-7 h-7 rounded-lg hover:bg-[#27272a] flex items-center justify-center text-zinc-400 hover:text-white transition-colors"
@@ -1221,7 +1457,8 @@ export default function App() {
                   </span>
                   <button
                     onClick={() => {
-                      const nextIdx = (currentProjectIndex + 1) % projectKeys.length;
+                      const nextIdx =
+                        (currentProjectIndex + 1) % projectKeys.length;
                       setSelectedProjectKey(projectKeys[nextIdx]);
                     }}
                     className="w-7 h-7 rounded-lg hover:bg-[#27272a] flex items-center justify-center text-zinc-400 hover:text-white transition-colors"
@@ -1244,7 +1481,12 @@ export default function App() {
             {/* Modal Body */}
             <div className="p-4 sm:p-6 space-y-5 sm:space-y-6 overflow-y-auto flex-1">
               <div className="relative h-44 sm:h-56 rounded-xl sm:rounded-2xl overflow-hidden border border-[#27272a] bg-[#18181b] shrink-0">
-                <img src={currentProject.img} alt={currentProject.title} className="w-full h-full object-cover" />
+                <iframe
+                  src={currentProject.link}
+                  title={currentProject.title}
+                  sandbox="allow-scripts allow-same-origin allow-forms"
+                  className="w-full h-full border-0"
+                />
               </div>
 
               <div className="space-y-2">
@@ -1254,7 +1496,9 @@ export default function App() {
                     Overview & Specs
                   </h4>
                   <span className="text-[10px] font-mono text-zinc-400 bg-[#18181b] border border-[#27272a] px-2.5 py-0.5 rounded-full flex items-center gap-1.5">
-                    <span>{readStats?.wordCount} words • ~{readStats?.seconds}s read</span>
+                    <span>
+                      {readStats?.wordCount} words • ~{readStats?.seconds}s read
+                    </span>
                   </span>
                 </div>
                 <p className="text-xs text-zinc-300 leading-relaxed bg-[#18181b]/50 p-3.5 rounded-xl border border-[#27272a]/60">
@@ -1263,7 +1507,9 @@ export default function App() {
               </div>
 
               <div className="space-y-2">
-                <h4 className="text-xs font-mono text-zinc-400 uppercase tracking-wider">Key Architectural Highlights:</h4>
+                <h4 className="text-xs font-mono text-zinc-400 uppercase tracking-wider">
+                  Key Architectural Highlights:
+                </h4>
                 <ul className="space-y-1.5 text-xs text-zinc-300 list-disc list-inside">
                   {currentProject.highlights.map((h, i) => (
                     <li key={i}>{h}</li>
@@ -1272,10 +1518,15 @@ export default function App() {
               </div>
 
               <div className="space-y-2">
-                <h4 className="text-xs font-mono text-zinc-400 uppercase tracking-wider">Technologies Used:</h4>
+                <h4 className="text-xs font-mono text-zinc-400 uppercase tracking-wider">
+                  Technologies Used:
+                </h4>
                 <div className="flex flex-wrap gap-1.5">
                   {currentProject.tags.map((t, i) => (
-                    <span key={i} className="px-2.5 py-1 rounded-md bg-[#18181b] border border-[#27272a] text-[10px] font-mono text-zinc-300">
+                    <span
+                      key={i}
+                      className="px-2.5 py-1 rounded-md bg-[#18181b] border border-[#27272a] text-[10px] font-mono text-zinc-300"
+                    >
                       {t}
                     </span>
                   ))}
@@ -1287,7 +1538,8 @@ export default function App() {
             <div className="p-4 sm:p-5 border-t border-[#27272a] bg-[#09090b]/90 flex flex-wrap items-center justify-between gap-3 shrink-0">
               <div className="hidden sm:flex items-center gap-3 text-[10px] font-mono text-zinc-500">
                 <span className="flex items-center gap-1 bg-[#18181b] px-2 py-1 rounded-md border border-[#27272a]">
-                  <kbd className="text-zinc-300 font-bold">←</kbd> <kbd className="text-zinc-300 font-bold">→</kbd> Navigate
+                  <kbd className="text-zinc-300 font-bold">←</kbd>{" "}
+                  <kbd className="text-zinc-300 font-bold">→</kbd> Navigate
                 </span>
                 <span className="flex items-center gap-1 bg-[#18181b] px-2 py-1 rounded-md border border-[#27272a]">
                   <kbd className="text-zinc-300 font-bold">Esc</kbd> Close
@@ -1315,7 +1567,7 @@ export default function App() {
         </div>
       )}
 
-{/* //dssd */}
+      {/* //dssd */}
       {/* MODAL 2: RESUME VIEWER MODAL */}
       {isResumeModalOpen && (
         <div className="fixed inset-0 z-[80] bg-black/85 backdrop-blur-md flex items-center justify-center p-2.5 sm:p-4 overflow-y-auto">
@@ -1326,8 +1578,12 @@ export default function App() {
                   <FileText className="w-4 h-4" />
                 </div>
                 <div>
-                  <h3 className="text-base sm:text-lg font-bold text-white">Shashintha Nimsara — Resume</h3>
-                  <span className="text-[10px] font-mono text-emerald-400">Senior Full-Stack Engineer</span>
+                  <h3 className="text-base sm:text-lg font-bold text-white">
+                    Shashintha Nimsara — Resume
+                  </h3>
+                  <span className="text-[10px] font-mono text-emerald-400">
+                    Full-Stack Developer
+                  </span>
                 </div>
               </div>
               <button
@@ -1340,37 +1596,71 @@ export default function App() {
 
             <div className="p-4 sm:p-6 space-y-5 sm:space-y-6 overflow-y-auto text-xs text-zinc-300 flex-1">
               <div className="p-4 rounded-xl bg-[#18181b] border border-[#27272a]">
-                <h4 className="font-bold text-white mb-1">Professional Summary</h4>
+                <h4 className="font-bold text-white mb-1">
+                  Professional Summary
+                </h4>
                 <p className="text-zinc-400 leading-relaxed">
-                  Senior Frontend Engineer with 4+ years of expertise designing and building scalable web applications. Proficient in React 19, TypeScript, Next.js, custom design systems, and performance tuning.
+                  Full-Stack Software Engineer with a solid academic foundation
+                  and hands-on industry experience building scalable web
+                  applications. Proficient in modern full-stack workflows
+                  including React, Next.js, TypeScript, and robust backend
+                  integrations, with a strong focus on clean architecture and
+                  high-performance digital solutions.
                 </p>
               </div>
 
               <div className="space-y-4">
-                <h4 className="text-xs font-mono text-zinc-400 uppercase tracking-wider">Work Experience</h4>
+                <h4 className="text-xs font-mono text-zinc-400 uppercase tracking-wider">
+                  Work Experience
+                </h4>
 
                 <div className="border-l-2 border-[#27272a] pl-4 space-y-1">
                   <div className="flex justify-between font-bold text-white flex-wrap gap-1">
-                    <span>Senior Frontend Engineer — Veloce Tech</span>
-                    <span className="text-zinc-500 font-mono text-[11px]">2023 — Present</span>
+                    <span>Software Engineer — amezcloud</span>
+                    <span className="text-zinc-500 font-mono text-[11px]">
+                      2026 — Present
+                    </span>
                   </div>
-                  <p className="text-zinc-400">Spearheaded frontend architecture for enterprise SaaS platform serving 150k+ daily active users. Reduced bundle size by 42%.</p>
+                  <p className="text-zinc-400">
+                    Architecting and developing production-ready web
+                    applications, optimizing full-stack performance, and
+                    implementing robust frontend and backend services.
+                  </p>
                 </div>
 
                 <div className="border-l-2 border-[#27272a] pl-4 space-y-1">
                   <div className="flex justify-between font-bold text-white flex-wrap gap-1">
-                    <span>Frontend Developer — Apex Digital Lab</span>
-                    <span className="text-zinc-500 font-mono text-[11px]">2021 — 2023</span>
+                    <span>
+                      Self-Taught Web Developer & Independent Projects
+                    </span>
+                    <span className="text-zinc-500 font-mono text-[11px]">
+                      2019 — Present
+                    </span>
                   </div>
-                  <p className="text-zinc-400">Created dark-themed component library with Radix UI and Tailwind CSS. Implemented automated WCAG accessibility pipelines.</p>
+                  <p className="text-zinc-400">
+                    Designed and launched multiple full-stack web applications
+                    and interactive platforms from scratch, mastering modern
+                    component-driven architectures, responsive UI/UX, and
+                    database integration.
+                  </p>
                 </div>
               </div>
 
               <div className="space-y-2">
-                <h4 className="text-xs font-mono text-zinc-400 uppercase tracking-wider">Education & Certifications</h4>
+                <h4 className="text-xs font-mono text-zinc-400 uppercase tracking-wider">
+                  Education & Certifications
+                </h4>
                 <div className="flex justify-between font-bold text-white flex-wrap gap-1">
-                  <span>B.S. in Computer Science — UC Berkeley</span>
-                  <span className="text-zinc-500 font-mono text-[11px]">Graduated 2021</span>
+                  <span>B.Sc. in Software Engineering </span>
+                  <span className="text-zinc-500 font-mono text-[11px]">
+                    Graduated - 2025
+                  </span>
+                </div>
+                <div className="flex justify-between font-bold text-white flex-wrap gap-1">
+                  <span>Master's in Software Engineering — Java Institute</span>
+                  <span className="text-zinc-500 font-mono text-[11px]">
+                    Ongoing
+                  </span>
                 </div>
               </div>
             </div>
@@ -1378,7 +1668,7 @@ export default function App() {
             <div className="p-4 sm:p-5 border-t border-[#27272a] bg-[#09090b]/90 flex items-center justify-between shrink-0">
               <button
                 onClick={() => {
-                  showToast('Downloading Shashintha Nimsara Resume PDF...');
+                  showToast("Downloading Shashintha Nimsara Resume PDF...");
                   setTimeout(() => setIsResumeModalOpen(false), 1000);
                 }}
                 className="px-4 sm:px-5 py-2.5 rounded-xl bg-white text-black font-bold text-xs hover:bg-zinc-200 flex items-center gap-2"
@@ -1405,7 +1695,7 @@ export default function App() {
         >
           <div
             className="glass-card max-w-xl w-full rounded-2xl border border-[#27272a] bg-[#0c0c0e]/95 overflow-hidden shadow-2xl relative flex flex-col max-h-[85vh] animate-in zoom-in-95 duration-150"
-            onClick={e => e.stopPropagation()}
+            onClick={(e) => e.stopPropagation()}
           >
             {/* Search Header */}
             <div className="p-3.5 sm:p-4 border-b border-[#27272a] flex items-center gap-3 bg-[#121215]">
@@ -1414,7 +1704,7 @@ export default function App() {
                 ref={commandInputRef}
                 type="text"
                 value={commandQuery}
-                onChange={e => {
+                onChange={(e) => {
                   setCommandQuery(e.target.value);
                   setCommandSelectedIndex(0);
                 }}
@@ -1425,7 +1715,7 @@ export default function App() {
               {commandQuery && (
                 <button
                   onClick={() => {
-                    setCommandQuery('');
+                    setCommandQuery("");
                     commandInputRef.current?.focus();
                   }}
                   className="text-zinc-500 hover:text-white p-1"
@@ -1445,9 +1735,15 @@ export default function App() {
                 <span>Shortcuts:</span>
               </div>
               <div className="flex items-center gap-2 shrink-0">
-                <span className="px-1.5 py-0.5 rounded bg-[#18181b] border border-[#27272a]">Ctrl+Alt+C: Contact</span>
-                <span className="px-1.5 py-0.5 rounded bg-[#18181b] border border-[#27272a]">Ctrl+Alt+P: Projects</span>
-                <span className="px-1.5 py-0.5 rounded bg-[#18181b] border border-[#27272a]">Ctrl+Alt+A: About</span>
+                <span className="px-1.5 py-0.5 rounded bg-[#18181b] border border-[#27272a]">
+                  Ctrl+Alt+C: Contact
+                </span>
+                <span className="px-1.5 py-0.5 rounded bg-[#18181b] border border-[#27272a]">
+                  Ctrl+Alt+P: Projects
+                </span>
+                <span className="px-1.5 py-0.5 rounded bg-[#18181b] border border-[#27272a]">
+                  Ctrl+Alt+A: About
+                </span>
               </div>
             </div>
 
@@ -1456,8 +1752,12 @@ export default function App() {
               {filteredCommands.length === 0 ? (
                 <div className="p-8 text-center space-y-2">
                   <Command className="w-8 h-8 text-zinc-600 mx-auto" />
-                  <p className="text-sm font-medium text-zinc-400">No commands found for "{commandQuery}"</p>
-                  <p className="text-xs text-zinc-600">Try searching "contact", "projects", "resume", or "about"</p>
+                  <p className="text-sm font-medium text-zinc-400">
+                    No commands found for "{commandQuery}"
+                  </p>
+                  <p className="text-xs text-zinc-600">
+                    Try searching "contact", "projects", "resume", or "about"
+                  </p>
                 </div>
               ) : (
                 filteredCommands.map((cmd, idx) => {
@@ -1470,26 +1770,34 @@ export default function App() {
                         setIsCommandPaletteOpen(false);
                       }}
                       onMouseEnter={() => setCommandSelectedIndex(idx)}
-                      className={`w-full p-3 rounded-xl flex items-center justify-between text-left transition-all duration-150 ${isSelected
-                        ? 'bg-gradient-to-r from-indigo-950/80 to-[#18181b] border border-indigo-500/40 text-white shadow-md'
-                        : 'bg-transparent border border-transparent text-zinc-300 hover:bg-[#18181b]'
-                        }`}
+                      className={`w-full p-3 rounded-xl flex items-center justify-between text-left transition-all duration-150 ${
+                        isSelected
+                          ? "bg-gradient-to-r from-indigo-950/80 to-[#18181b] border border-indigo-500/40 text-white shadow-md"
+                          : "bg-transparent border border-transparent text-zinc-300 hover:bg-[#18181b]"
+                      }`}
                     >
                       <div className="flex items-center gap-3 min-w-0 pr-2">
                         <div
-                          className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${isSelected ? 'bg-indigo-600/30 border border-indigo-500/50' : 'bg-[#18181b] border border-[#27272a]'
-                            }`}
+                          className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${
+                            isSelected
+                              ? "bg-indigo-600/30 border border-indigo-500/50"
+                              : "bg-[#18181b] border border-[#27272a]"
+                          }`}
                         >
                           {cmd.icon}
                         </div>
                         <div className="min-w-0">
                           <div className="flex items-center gap-2">
-                            <span className="text-xs font-bold text-white truncate">{cmd.title}</span>
+                            <span className="text-xs font-bold text-white truncate">
+                              {cmd.title}
+                            </span>
                             <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-[#18181b] border border-[#27272a] text-zinc-400 shrink-0">
                               {cmd.category}
                             </span>
                           </div>
-                          <p className="text-[11px] text-zinc-400 truncate mt-0.5">{cmd.description}</p>
+                          <p className="text-[11px] text-zinc-400 truncate mt-0.5">
+                            {cmd.description}
+                          </p>
                         </div>
                       </div>
 
@@ -1499,7 +1807,9 @@ export default function App() {
                             {cmd.shortcut}
                           </span>
                         )}
-                        {isSelected && <CornerDownLeft className="w-3.5 h-3.5 text-indigo-400" />}
+                        {isSelected && (
+                          <CornerDownLeft className="w-3.5 h-3.5 text-indigo-400" />
+                        )}
                       </div>
                     </button>
                   );
@@ -1511,18 +1821,27 @@ export default function App() {
             <div className="p-3 border-t border-[#27272a] bg-[#09090b] flex items-center justify-between text-[11px] font-mono text-zinc-500">
               <div className="flex items-center gap-3">
                 <span className="flex items-center gap-1">
-                  <kbd className="px-1.5 py-0.5 rounded bg-[#18181b] border border-[#27272a] text-zinc-300 font-bold">↑</kbd>
-                  <kbd className="px-1.5 py-0.5 rounded bg-[#18181b] border border-[#27272a] text-zinc-300 font-bold">↓</kbd>
+                  <kbd className="px-1.5 py-0.5 rounded bg-[#18181b] border border-[#27272a] text-zinc-300 font-bold">
+                    ↑
+                  </kbd>
+                  <kbd className="px-1.5 py-0.5 rounded bg-[#18181b] border border-[#27272a] text-zinc-300 font-bold">
+                    ↓
+                  </kbd>
                   <span>Navigate</span>
                 </span>
                 <span className="flex items-center gap-1">
-                  <kbd className="px-1.5 py-0.5 rounded bg-[#18181b] border border-[#27272a] text-zinc-300 font-bold">↵</kbd>
+                  <kbd className="px-1.5 py-0.5 rounded bg-[#18181b] border border-[#27272a] text-zinc-300 font-bold">
+                    ↵
+                  </kbd>
                   <span>Select</span>
                 </span>
               </div>
               <div>
                 <span>
-                  <strong className="text-zinc-300">{filteredCommands.length}</strong> commands available
+                  <strong className="text-zinc-300">
+                    {filteredCommands.length}
+                  </strong>{" "}
+                  commands available
                 </span>
               </div>
             </div>
@@ -1538,7 +1857,7 @@ export default function App() {
         >
           <div
             className="glass-card max-w-lg w-full rounded-2xl sm:rounded-3xl border border-indigo-500/40 bg-[#0c0c0e]/95 p-5 sm:p-6 shadow-2xl relative space-y-5 animate-in zoom-in-95 slide-in-from-bottom-6 duration-200"
-            onClick={e => e.stopPropagation()}
+            onClick={(e) => e.stopPropagation()}
           >
             {/* Header */}
             <div className="flex items-start justify-between gap-3">
@@ -1551,7 +1870,8 @@ export default function App() {
                   Keyboard Shortcuts Helper
                 </h3>
                 <p className="text-xs text-zinc-400 leading-relaxed">
-                  Navigate the portfolio instantly using system keyboard shortcuts or search with the command palette.
+                  Navigate the portfolio instantly using system keyboard
+                  shortcuts or search with the command palette.
                 </p>
               </div>
 
@@ -1571,8 +1891,12 @@ export default function App() {
                   <Command className="w-4 h-4" />
                 </div>
                 <div>
-                  <h4 className="text-xs font-bold text-white">Global Command Palette</h4>
-                  <p className="text-[11px] text-zinc-400">Search all sections, projects, & actions</p>
+                  <h4 className="text-xs font-bold text-white">
+                    Global Command Palette
+                  </h4>
+                  <p className="text-[11px] text-zinc-400">
+                    Search all sections, projects, & actions
+                  </p>
                 </div>
               </div>
               <kbd className="px-2.5 py-1 rounded-lg bg-[#18181b] border border-indigo-500/40 text-xs font-mono text-indigo-300 font-bold shadow-md shrink-0">
@@ -1582,38 +1906,62 @@ export default function App() {
 
             {/* Section Shortcuts Grid */}
             <div className="space-y-2">
-              <h4 className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider">Quick Section Jumps (Ctrl + Alt + [Key])</h4>
+              <h4 className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider">
+                Quick Section Jumps (Ctrl + Alt + [Key])
+              </h4>
               <div className="grid grid-cols-2 gap-2 text-xs">
                 <div className="p-2.5 rounded-xl bg-[#121215] border border-[#27272a] flex items-center justify-between">
-                  <span className="text-zinc-300 font-medium">Contact Form</span>
-                  <kbd className="px-1.5 py-0.5 rounded bg-[#18181b] border border-[#27272a] text-[10px] font-mono text-indigo-300 font-semibold">Ctrl+Alt+C</kbd>
+                  <span className="text-zinc-300 font-medium">
+                    Contact Form
+                  </span>
+                  <kbd className="px-1.5 py-0.5 rounded bg-[#18181b] border border-[#27272a] text-[10px] font-mono text-indigo-300 font-semibold">
+                    Ctrl+Alt+C
+                  </kbd>
                 </div>
                 <div className="p-2.5 rounded-xl bg-[#121215] border border-[#27272a] flex items-center justify-between">
-                  <span className="text-zinc-300 font-medium">Projects Grid</span>
-                  <kbd className="px-1.5 py-0.5 rounded bg-[#18181b] border border-[#27272a] text-[10px] font-mono text-indigo-300 font-semibold">Ctrl+Alt+P</kbd>
+                  <span className="text-zinc-300 font-medium">
+                    Projects Grid
+                  </span>
+                  <kbd className="px-1.5 py-0.5 rounded bg-[#18181b] border border-[#27272a] text-[10px] font-mono text-indigo-300 font-semibold">
+                    Ctrl+Alt+P
+                  </kbd>
                 </div>
                 <div className="p-2.5 rounded-xl bg-[#121215] border border-[#27272a] flex items-center justify-between">
-                  <span className="text-zinc-300 font-medium">About Nimsara</span>
-                  <kbd className="px-1.5 py-0.5 rounded bg-[#18181b] border border-[#27272a] text-[10px] font-mono text-indigo-300 font-semibold">Ctrl+Alt+A</kbd>
+                  <span className="text-zinc-300 font-medium">
+                    About Nimsara
+                  </span>
+                  <kbd className="px-1.5 py-0.5 rounded bg-[#18181b] border border-[#27272a] text-[10px] font-mono text-indigo-300 font-semibold">
+                    Ctrl+Alt+A
+                  </kbd>
                 </div>
                 <div className="p-2.5 rounded-xl bg-[#121215] border border-[#27272a] flex items-center justify-between">
                   <span className="text-zinc-300 font-medium">Tech Stack</span>
-                  <kbd className="px-1.5 py-0.5 rounded bg-[#18181b] border border-[#27272a] text-[10px] font-mono text-indigo-300 font-semibold">Ctrl+Alt+T</kbd>
+                  <kbd className="px-1.5 py-0.5 rounded bg-[#18181b] border border-[#27272a] text-[10px] font-mono text-indigo-300 font-semibold">
+                    Ctrl+Alt+T
+                  </kbd>
                 </div>
                 <div className="p-2.5 rounded-xl bg-[#121215] border border-[#27272a] flex items-center justify-between">
                   <span className="text-zinc-300 font-medium">Guestbook</span>
-                  <kbd className="px-1.5 py-0.5 rounded bg-[#18181b] border border-[#27272a] text-[10px] font-mono text-indigo-300 font-semibold">Ctrl+Alt+G</kbd>
+                  <kbd className="px-1.5 py-0.5 rounded bg-[#18181b] border border-[#27272a] text-[10px] font-mono text-indigo-300 font-semibold">
+                    Ctrl+Alt+G
+                  </kbd>
                 </div>
                 <div className="p-2.5 rounded-xl bg-[#121215] border border-[#27272a] flex items-center justify-between">
-                  <span className="text-zinc-300 font-medium">Resume Modal</span>
-                  <kbd className="px-1.5 py-0.5 rounded bg-[#18181b] border border-[#27272a] text-[10px] font-mono text-indigo-300 font-semibold">Ctrl+Alt+R</kbd>
+                  <span className="text-zinc-300 font-medium">
+                    Resume Modal
+                  </span>
+                  <kbd className="px-1.5 py-0.5 rounded bg-[#18181b] border border-[#27272a] text-[10px] font-mono text-indigo-300 font-semibold">
+                    Ctrl+Alt+R
+                  </kbd>
                 </div>
               </div>
             </div>
 
             {/* Footer Buttons */}
             <div className="pt-2 border-t border-[#27272a] flex items-center justify-between gap-3">
-              <p className="text-[10px] text-zinc-500 font-mono">Closing shrinks this to bottom-right button</p>
+              <p className="text-[10px] text-zinc-500 font-mono">
+                Closing shrinks this to bottom-right button
+              </p>
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => {
@@ -1649,14 +1997,16 @@ export default function App() {
           </div>
           <div className="flex items-center gap-1.5 pr-0.5 text-xs font-mono font-medium text-zinc-200">
             <span>Shortcuts</span>
-            <kbd className="px-1.5 py-0.5 rounded bg-[#18181b] border border-[#27272a] text-[10px] text-indigo-300">⌘K</kbd>
+            <kbd className="px-1.5 py-0.5 rounded bg-[#18181b] border border-[#27272a] text-[10px] text-indigo-300">
+              ⌘K
+            </kbd>
           </div>
         </button>
       )}
 
       {/* TOAST NOTIFICATIONS CONTAINER */}
       <div className="fixed bottom-6 sm:bottom-20 right-6 z-[100] flex flex-col gap-2 pointer-events-none">
-        {toasts.map(t => (
+        {toasts.map((t) => (
           <div
             key={t.id}
             className="glass-card px-4 py-3 rounded-xl border border-white/20 text-xs font-medium text-white shadow-2xl flex items-center gap-2 pointer-events-auto animate-in fade-in slide-in-from-bottom-3 duration-200"
@@ -1667,7 +2017,7 @@ export default function App() {
         ))}
       </div>
 
-      <AmbientGlow/>
+      <AmbientGlow />
     </div>
   );
 }

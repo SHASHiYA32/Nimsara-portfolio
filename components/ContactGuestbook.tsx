@@ -62,7 +62,7 @@ export default function ContactGuestbook() {
             <span className="text-xs font-mono text-zinc-400 tracking-widest uppercase">// GET IN TOUCH</span>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-white mt-1">Send a Message</h2>
             <p className="text-xs text-zinc-400 mt-2">
-              Have an exciting project, senior frontend role, or consulting opportunity? Fill out the transparent glass form below.
+              Have an exciting project, full-stack role, or consulting opportunity? Fill out the transparent Glass Form below
             </p>
           </div>
 
@@ -158,9 +158,9 @@ export default function ContactGuestbook() {
           </div>
 
           <div className="glass-card p-6 rounded-2xl border border-white/10 bg-gradient-to-br from-indigo-950/20 to-transparent">
-            <h3 className="text-sm font-bold text-white mb-2">Looking for a Senior Full-Stack Developer?</h3>
+            <h3 className="text-sm font-bold text-white mb-2">Need a High-Impact Developer?</h3>
             <p className="text-xs text-zinc-400 leading-relaxed">
-              Available for full-time senior roles, design system migrations, and high-impact contract work in React, Next.js, and TypeScript.
+              Ready to build scalable full-stack applications, optimize web performance, and deliver exceptional digital experiences.
             </p>
           </div>
         </div>
