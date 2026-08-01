@@ -51,6 +51,7 @@ import {
   SquareSigma,
   Brain,
   GraduationCap,
+  Coffee,
 } from "lucide-react";
 
 import Hero from "@/components/Hero";
@@ -1055,13 +1056,78 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Category 2: Styling & UI/UX */}
+              {/* Category 2: Backend, Systems & Languages */}
+              <div>
+                <h3 className="text-xs font-mono text-zinc-400 tracking-wider uppercase mb-4 flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
+                  Backend, Systems & Core Languages
+                </h3>
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+                  <div className="glass-card p-4 rounded-xl border border-[#27272a] flex flex-col items-center text-center group hover:border-zinc-400 hover:scale-105 transition-all">
+                    <div className="w-10 h-10 rounded-lg bg-[#18181b] flex items-center justify-center text-emerald-500 mb-2">
+                      <Server className="w-6 h-6" />
+                    </div>
+                    <span className="text-xs font-bold text-white">
+                      Node.js & Express
+                    </span>
+                    <span className="text-[10px] text-zinc-500 font-mono mt-1">
+                      Proficient
+                    </span>
+                  </div>
+
+                  <div className="glass-card p-4 rounded-xl border border-[#27272a] flex flex-col items-center text-center group hover:border-zinc-400 hover:scale-105 transition-all">
+                    <div className="w-10 h-10 rounded-lg bg-[#18181b] flex items-center justify-center text-red-500 mb-2">
+                      <Coffee className="w-6 h-6" />
+                    </div>
+                    <span className="text-xs font-bold text-white">Java</span>
+                    <span className="text-[10px] text-zinc-500 font-mono mt-1">
+                      Advanced • Master's
+                    </span>
+                  </div>
+
+                  <div className="glass-card p-4 rounded-xl border border-[#27272a] flex flex-col items-center text-center group hover:border-zinc-400 hover:scale-105 transition-all">
+                    <div className="w-10 h-10 rounded-lg bg-[#18181b] flex items-center justify-center text-purple-500 mb-2">
+                      <Cpu className="w-6 h-6" />
+                    </div>
+                    <span className="text-xs font-bold text-white">
+                      C# & .NET
+                    </span>
+                    <span className="text-[10px] text-zinc-500 font-mono mt-1">
+                      Backend & OOP
+                    </span>
+                  </div>
+
+                  <div className="glass-card p-4 rounded-xl border border-[#27272a] flex flex-col items-center text-center group hover:border-zinc-400 hover:scale-105 transition-all">
+                    <div className="w-10 h-10 rounded-lg bg-[#18181b] flex items-center justify-center text-blue-600 mb-2">
+                      <Terminal className="w-6 h-6" />
+                    </div>
+                    <span className="text-xs font-bold text-white">C++</span>
+                    <span className="text-[10px] text-zinc-500 font-mono mt-1">
+                      Systems Logic
+                    </span>
+                  </div>
+
+                  <div className="glass-card p-4 rounded-xl border border-[#27272a] flex flex-col items-center text-center group hover:border-zinc-400 hover:scale-105 transition-all">
+                    <div className="w-10 h-10 rounded-lg bg-[#18181b] flex items-center justify-center text-blue-500 mb-2">
+                      <Database className="w-6 h-6" />
+                    </div>
+                    <span className="text-xs font-bold text-white">
+                      MySQL / Supabase
+                    </span>
+                    <span className="text-[10px] text-zinc-500 font-mono mt-1">
+                      Expert
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Category 3: Styling, Motion & UI Design */}
               <div>
                 <h3 className="text-xs font-mono text-zinc-400 tracking-wider uppercase mb-4 flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-indigo-400"></span>
                   Styling, Motion & UI Design
                 </h3>
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
                   <div className="glass-card p-4 rounded-xl border border-[#27272a] flex flex-col items-center text-center group hover:border-zinc-400 hover:scale-105 transition-all">
                     <div className="w-10 h-10 rounded-lg bg-[#18181b] flex items-center justify-center text-cyan-400 mb-2">
                       <Palette className="w-6 h-6" />
@@ -1134,25 +1200,13 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Category 3: Tooling & Backend */}
+              {/* Category 4: Tooling & Cloud */}
               <div>
                 <h3 className="text-xs font-mono text-zinc-400 tracking-wider uppercase mb-4 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
-                  Tooling, Backend & Cloud
+                  <span className="w-2 h-2 rounded-full bg-sky-400"></span>
+                  Tooling, Dev & Cloud
                 </h3>
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-                  <div className="glass-card p-4 rounded-xl border border-[#27272a] flex flex-col items-center text-center group hover:border-zinc-400 hover:scale-105 transition-all">
-                    <div className="w-10 h-10 rounded-lg bg-[#18181b] flex items-center justify-center text-emerald-500 mb-2">
-                      <Server className="w-6 h-6" />
-                    </div>
-                    <span className="text-xs font-bold text-white">
-                      Node.js & Express
-                    </span>
-                    <span className="text-[10px] text-zinc-500 font-mono mt-1">
-                      Proficient
-                    </span>
-                  </div>
-
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
                   <div className="glass-card p-4 rounded-xl border border-[#27272a] flex flex-col items-center text-center group hover:border-zinc-400 hover:scale-105 transition-all">
                     <div className="w-10 h-10 rounded-lg bg-[#18181b] flex items-center justify-center text-yellow-300 mb-2">
                       <Zap className="w-6 h-6" />
@@ -1174,18 +1228,6 @@ export default function App() {
                     </span>
                     <span className="text-[10px] text-zinc-500 font-mono mt-1">
                       CI/CD Workflows
-                    </span>
-                  </div>
-
-                  <div className="glass-card p-4 rounded-xl border border-[#27272a] flex flex-col items-center text-center group hover:border-zinc-400 hover:scale-105 transition-all">
-                    <div className="w-10 h-10 rounded-lg bg-[#18181b] flex items-center justify-center text-blue-500 mb-2">
-                      <Database className="w-6 h-6" />
-                    </div>
-                    <span className="text-xs font-bold text-white">
-                      MySQL / SUPABASE
-                    </span>
-                    <span className="text-[10px] text-zinc-500 font-mono mt-1">
-                      Expert
                     </span>
                   </div>
 
