@@ -36,7 +36,7 @@ export default function Hero() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
             </span>
-            Available for Senior Roles & High-Impact Projects
+            Ready for High-Impact Full-Stack Engineering
           </div>
 
           {/* Headline */}
@@ -51,17 +51,17 @@ export default function Hero() {
 
           {/* Short Bio Summary */}
           <p className="text-zinc-400 text-base sm:text-lg max-w-xl font-normal leading-relaxed">
-            Architecting ultra-responsive, accessible, and high-performance web applications with a focus on dark minimalist aesthetics, frosted glass optics, and fluid user experiences.
+            Bridging the gap between robust server-side architecture and pixel-perfect front-end design to build lightning-fast, production-ready web ecosystems.
           </p>
 
           {/* Micro Stats Row */}
           <div className="grid grid-cols-3 gap-4 py-3 w-full max-w-md border-y border-white/10">
             <div>
-              <div className="text-xl sm:text-2xl font-extrabold text-white font-mono">4+</div>
+              <div className="text-xl sm:text-2xl font-extrabold text-white font-mono">2+</div>
               <div className="text-[11px] text-zinc-500 uppercase tracking-wider font-mono">Years Exp.</div>
             </div>
             <div>
-              <div className="text-xl sm:text-2xl font-extrabold text-white font-mono">25+</div>
+              <div className="text-xl sm:text-2xl font-extrabold text-white font-mono">10+</div>
               <div className="text-[11px] text-zinc-500 uppercase tracking-wider font-mono">Projects</div>
             </div>
             <div>
@@ -159,7 +159,7 @@ export default function Hero() {
               <div className="absolute inset-0 bg-gradient-to-t from-[#000000] via-transparent to-transparent opacity-80"></div>
 
               <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs text-white">
-                <span className="font-bold tracking-wide backdrop-blur-md px-2.5 py-1 rounded-lg bg-black/60 border border-white/10">Senior Engineer</span>
+                <span className="font-bold tracking-wide backdrop-blur-md px-2.5 py-1 rounded-lg bg-black/60 border border-white/10">Software Engineer</span>
                 <span className="text-[10px] font-mono text-emerald-400 backdrop-blur-md px-2 py-0.5 rounded-lg bg-emerald-950/80 border border-emerald-500/30 flex items-center gap-1">
                   <ShieldCheck className="w-3 h-3" />
                   Verified
@@ -174,15 +174,15 @@ export default function Hero() {
                 <span className="text-xs text-zinc-400 font-mono">@SHASHiYA32</span>
               </div>
               <p className="text-xs text-zinc-400 leading-relaxed">
-                Building modular design systems, high-speed Vite architectures, and responsive Next.js applications.
+                Building scalable backend services, clean component architectures, and responsive full-stack applications.
               </p>
 
               {/* Tag Pills */}
               <div className="flex flex-wrap gap-1.5 pt-2">
-                <span className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-[10px] font-mono text-zinc-300">Next.js 15</span>
+                <span className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-[10px] font-mono text-zinc-300">Next.js</span>
                 <span className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-[10px] font-mono text-zinc-300">TypeScript</span>
-                <span className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-[10px] font-mono text-zinc-300">Tailwind v4</span>
-                <span className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-[10px] font-mono text-zinc-300">React 19</span>
+                <span className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-[10px] font-mono text-zinc-300">Tailwind</span>
+                <span className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-[10px] font-mono text-zinc-300">React</span>
               </div>
             </div>
 
