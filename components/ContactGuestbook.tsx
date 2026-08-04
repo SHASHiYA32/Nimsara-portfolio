@@ -138,7 +138,7 @@ export default function ContactGuestbook() {
             <div className="space-y-4 text-xs">
               <div className="flex items-center justify-between p-3 rounded-xl bg-white/5 border border-white/5">
                 <span className="text-zinc-400">Direct Email</span>
-                <a href="mailto:alex.rivera.dev@gmail.com" className="text-white font-mono hover:underline">nimsaraperera32@gmail.com</a>
+                <a href="mailto:alex.rivera.dev@gmail.com" className="text-white font-mono hover:underline">shashinthanimsara.perera@gmail.com</a>
               </div>
 
               <div className="flex items-center justify-between p-3 rounded-xl bg-white/5 border border-white/5">
