@@ -162,6 +162,21 @@ const PROJECTS_DATA: Record<string, ProjectData> = {
     tags: ["Next.js", "React", "Tailwind CSS"],
     link: "https://next-js-todo-app-gamma-five.vercel.app/",
   },
+  tord: {
+    id: "tord",
+    title: "Tord Platform",
+    categoryLabel: "Web Application",
+    categoryGroup: "web",
+    img: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&auto=format&fit=crop&q=80",
+    desc: "A modern web application built for seamless user experience, fast navigation, and interactive layouts.",
+    highlights: [
+      "Responsive design optimized for multiple devices.",
+      "Clean UI component integration.",
+      "Fast production build and performance.",
+    ],
+    tags: ["Next.js", "React", "Tailwind CSS", "TypeScript"],
+    link: "https://tord-olive.vercel.app/",
+  },
 };
 
 interface GuestbookComment {
@@ -834,7 +849,7 @@ export default function App() {
                 <span
                   className={`px-1.5 py-0.5 rounded-full text-[10px] hidden xs:inline-block sm:inline-block ${activeTab === "projects" ? "bg-black/10" : "bg-[#18181b] border border-[#27272a]"}`}
                 >
-                  6
+                  {projectList.length}
                 </span>
               </button>
 
