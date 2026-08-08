@@ -222,7 +222,6 @@ export default function ContactGuestbook() {
 
       {/* 6. GUESTBOOK SECTION */}
       <section id="guestbook" className="space-y-8">
-        
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
             <span className="text-xs font-mono text-zinc-400 tracking-widest uppercase">// COMMUNITY FEEDBACK</span>
