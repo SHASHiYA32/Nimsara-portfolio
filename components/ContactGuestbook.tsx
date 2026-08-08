@@ -1,19 +1,59 @@
 'use client';
 
-import React, { useState, FormEvent } from 'react';
-import { Send, CheckCircle, MessageSquare, Star, User } from 'lucide-react';
-import { INITIAL_COMMENTS, Comment } from '@/src/data/portfolioData';
+import React, { useState, useEffect, FormEvent } from 'react';
+import { Send, CheckCircle, MessageSquare, Star } from 'lucide-react';
+import { createClient } from '@/supabase/client';
+
+export interface DatabaseComment {
+  id: number;
+  author: string | null;
+  role: string | null;
+  company: string | null;
+  content: string | null;
+  rating: string | null;
+  created_at: string;
+}
 
 export default function ContactGuestbook() {
+  const supabase = createClient();
   // Contact Form State
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
 
   // Guestbook Comments State
-  const [comments, setComments] = useState<Comment[]>(INITIAL_COMMENTS);
-  const [newComment, setNewComment] = useState({ name: '', role: '', text: '' });
+  const [comments, setComments] = useState<DatabaseComment[]>([]);
+  const [isLoadingComments, setIsLoadingComments] = useState(true);
+  
+  // New Comment Input State (including rating selection)
+  const [newComment, setNewComment] = useState({ name: '', role: '', company: '', text: '', rating: 5 });
+  const [hoverRating, setHoverRating] = useState(0);
   const [commentSuccess, setCommentSuccess] = useState(false);
+
+  // Fetch comments from Supabase on mount
+  useEffect(() => {
+    fetchComments();
+  }, []);
+
+  const fetchComments = async () => {
+    try {
+      setIsLoadingComments(true);
+      const { data, error } = await supabase
+        .from('initial_comments')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        console.error('Error fetching comments:', error);
+      } else if (data) {
+        setComments(data);
+      }
+    } catch (err) {
+      console.error('Unexpected error fetching comments:', err);
+    } finally {
+      setIsLoadingComments(false);
+    }
+  };
 
   const handleContactSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -28,25 +68,38 @@ export default function ContactGuestbook() {
     }, 800);
   };
 
-  const handleCommentSubmit = (e: FormEvent) => {
+  const handleCommentSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!newComment.name || !newComment.text) return;
 
-    const entry: Comment = {
-      id: Date.now().toString(),
-      author: newComment.name,
-      role: newComment.role || 'Guest Visitor',
-      company: 'Community Member',
-      avatar: `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(newComment.name)}`,
-      content: newComment.text,
-      timestamp: 'Just now',
-      rating: 5
-    };
+    try {
+      const { data, error } = await supabase
+        .from('initial_comments')
+        .insert([
+          {
+            author: newComment.name,
+            role: newComment.role || 'Guest Visitor',
+            company: newComment.company || 'Community Member',
+            content: newComment.text,
+            rating: newComment.rating.toString(),
+          },
+        ])
+        .select();
 
-    setComments([entry, ...comments]);
-    setNewComment({ name: '', role: '', text: '' });
-    setCommentSuccess(true);
-    setTimeout(() => setCommentSuccess(false), 4000);
+      if (error) {
+        console.error('Error inserting comment:', error);
+        return;
+      }
+
+      if (data) {
+        setComments([data[0], ...comments]);
+        setNewComment({ name: '', role: '', company: '', text: '', rating: 5 });
+        setCommentSuccess(true);
+        setTimeout(() => setCommentSuccess(false), 4000);
+      }
+    } catch (err) {
+      console.error('Unexpected error posting comment:', err);
+    }
   };
 
   return (
@@ -138,7 +191,7 @@ export default function ContactGuestbook() {
             <div className="space-y-4 text-xs">
               <div className="flex items-center justify-between p-3 rounded-xl bg-white/5 border border-white/5">
                 <span className="text-zinc-400">Direct Email</span>
-                <a href="mailto:alex.rivera.dev@gmail.com" className="text-white font-mono hover:underline">shashinthanimsara.perera@gmail.com</a>
+                <a href="mailto:shashinthanimsara.perera@gmail.com" className="text-white font-mono hover:underline">shashinthanimsara.perera@gmail.com</a>
               </div>
 
               <div className="flex items-center justify-between p-3 rounded-xl bg-white/5 border border-white/5">
@@ -207,14 +260,47 @@ export default function ContactGuestbook() {
                 />
               </div>
 
-              <div>
+              <div className="grid grid-cols-2 gap-2">
                 <input
                   type="text"
-                  placeholder="Role & Company (Optional)"
+                  placeholder="Role (e.g. Developer)"
                   value={newComment.role}
                   onChange={(e) => setNewComment({ ...newComment, role: e.target.value })}
                   className="w-full glass-input px-3.5 py-2.5 rounded-xl text-xs"
                 />
+                <input
+                  type="text"
+                  placeholder="Company (Optional)"
+                  value={newComment.company}
+                  onChange={(e) => setNewComment({ ...newComment, company: e.target.value })}
+                  className="w-full glass-input px-3.5 py-2.5 rounded-xl text-xs"
+                />
+              </div>
+
+              {/* Interactive Star Rating Selector */}
+              <div className="space-y-1.5 pt-1">
+                <label className="block text-[10px] font-mono text-zinc-400 uppercase">Select Rating</label>
+                <div className="flex items-center gap-1">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <button
+                      type="button"
+                      key={star}
+                      onMouseEnter={() => setHoverRating(star)}
+                      onMouseLeave={() => setHoverRating(0)}
+                      onClick={() => setNewComment({ ...newComment, rating: star })}
+                      className="p-1 focus:outline-none transition-transform hover:scale-110"
+                    >
+                      <Star
+                        className={`w-5 h-5 ${
+                          (hoverRating || newComment.rating) >= star
+                            ? 'fill-amber-400 text-amber-400'
+                            : 'text-zinc-600'
+                        }`}
+                      />
+                    </button>
+                  ))}
+                  <span className="ml-2 text-xs font-mono text-amber-400">{newComment.rating} / 5</span>
+                </div>
               </div>
 
               <div>
@@ -239,43 +325,65 @@ export default function ContactGuestbook() {
 
           {/* Comments Cards List */}
           <div className="lg:col-span-7 space-y-4">
-            {comments.map((comment) => (
-              <div
-                key={comment.id}
-                className="glass-card p-5 rounded-2xl border border-white/10 hover:border-white/20 transition-all space-y-3"
-              >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <img
-                      src={comment.avatar}
-                      alt={comment.author}
-                      className="w-9 h-9 rounded-full object-cover border border-white/10"
-                      onError={(e) => {
-                        (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80';
-                      }}
-                    />
-                    <div>
-                      <h4 className="text-xs font-bold text-white">{comment.author}</h4>
-                      <p className="text-[10px] text-zinc-400 font-mono">{comment.role} • {comment.company}</p>
+            {isLoadingComments ? (
+              <div className="glass-card p-8 rounded-2xl text-center text-xs text-zinc-400 font-mono">
+                Loading community feedback...
+              </div>
+            ) : comments.length === 0 ? (
+              <div className="glass-card p-8 rounded-2xl text-center text-xs text-zinc-400 font-mono">
+                No comments yet. Be the first to sign the guestbook!
+              </div>
+            ) : (
+              comments.map((comment) => {
+                const parsedRating = parseInt(comment.rating || '5', 10);
+                const avatarSeed = comment.author || 'Guest';
+                const avatarUrl = `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(avatarSeed)}`;
+
+                return (
+                  <div
+                    key={comment.id}
+                    className="glass-card p-5 rounded-2xl border border-white/10 hover:border-white/20 transition-all space-y-3"
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <img
+                          src={avatarUrl}
+                          alt={comment.author || 'User'}
+                          className="w-9 h-9 rounded-full object-cover border border-white/10"
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80';
+                          }}
+                        />
+                        <div>
+                          <h4 className="text-xs font-bold text-white">{comment.author}</h4>
+                          <p className="text-[10px] text-zinc-400 font-mono">
+                            {comment.role} {comment.company ? `• ${comment.company}` : ''}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center text-amber-400 gap-0.5">
+                        {[...Array(isNaN(parsedRating) ? 5 : parsedRating)].map((_, i) => (
+                          <Star key={i} className="w-3 h-3 fill-amber-400 text-amber-400" />
+                        ))}
+                      </div>
+                    </div>
+
+                    <p className="text-xs text-zinc-300 italic leading-relaxed">
+                      &ldquo;{comment.content}&rdquo;
+                    </p>
+
+                    <div className="text-[10px] text-zinc-500 font-mono text-right">
+                      {new Date(comment.created_at).toLocaleDateString(undefined, {
+                        month: 'short',
+                        day: 'numeric',
+                        year: 'numeric',
+                      })}
                     </div>
                   </div>
-
-                  <div className="flex items-center text-amber-400 gap-0.5">
-                    {[...Array(comment.rating)].map((_, i) => (
-                      <Star key={i} className="w-3 h-3 fill-amber-400 text-amber-400" />
-                    ))}
-                  </div>
-                </div>
-
-                <p className="text-xs text-zinc-300 italic leading-relaxed">
-                  &ldquo;{comment.content}&rdquo;
-                </p>
-
-                <div className="text-[10px] text-zinc-500 font-mono text-right">
-                  {comment.timestamp}
-                </div>
-              </div>
-            ))}
+                );
+              })
+            )}
           </div>
 
         </div>

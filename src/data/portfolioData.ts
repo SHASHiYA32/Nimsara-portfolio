@@ -232,36 +232,3 @@ export const CERTIFICATES: Certificate[] = [
     skills: ['React Native', 'Mobile UI', 'Expo', 'iOS/Android Native']
   }
 ];
-
-export const INITIAL_COMMENTS: Comment[] = [
-  {
-    id: '1',
-    author: 'Sarah Jenkins',
-    role: 'VP of Engineering',
-    company: 'Vercel Ecosystem',
-    avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80',
-    content: 'Alex is a phenomenal engineer. His attention to detail on frosted glass micro-interactions and performance optimization was instrumental to our latest product launch!',
-    timestamp: '2 hours ago',
-    rating: 5
-  },
-  {
-    id: '2',
-    author: 'David Chen',
-    role: 'Lead Designer',
-    company: 'Stripe Product Team',
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80',
-    content: 'Working with Alex is an absolute joy. He translates complex Figma component tokens into clean, modular, and type-safe React code effortlessly.',
-    timestamp: '1 day ago',
-    rating: 5
-  },
-  {
-    id: '3',
-    author: 'Elena Rostova',
-    role: 'Founder & CEO',
-    company: 'Lumina Analytics',
-    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
-    content: 'The dark minimalist UI Alex engineered for our real-time dashboard exceeded our highest expectations. Super fast and rock solid.',
-    timestamp: '3 days ago',
-    rating: 5
-  }
-];
