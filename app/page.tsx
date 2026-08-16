@@ -177,6 +177,35 @@ const PROJECTS_DATA: Record<string, ProjectData> = {
     tags: ["Next.js", "React", "Tailwind CSS", "TypeScript"],
     link: "https://tord-olive.vercel.app/",
   },
+  DDPlatform:{
+  id: "dd-management-platform",
+  title: "Universal Business Management Platform",
+  categoryLabel: "Business Management System",
+  categoryGroup: "system",
+  img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&auto=format&fit=crop&q=80",
+  desc: "A powerful all-in-one business management platform designed to help businesses manage inventory, sales, customers, suppliers, financial obligations, and business performance from a single modern dashboard.",
+  highlights: [
+    "Centralized dashboard for monitoring key business performance metrics.",
+    "Complete inventory management with stock levels, SKU tracking, and low-stock alerts.",
+    "Sales management with transaction history, invoices, payment statuses, and outstanding balances.",
+    "Customer and supplier management for maintaining organized business relationships.",
+    "Weekly, monthly, and custom reporting for data-driven business decisions.",
+    "Real-time business insights including revenue, inventory value, customer dues, and payables.",
+    "Responsive modern interface designed for efficient day-to-day business operations.",
+    "Scalable architecture that can be customized for different types of businesses."
+  ],
+  tags: [
+    "Business Management",
+    "Inventory",
+    "Sales",
+    "CRM",
+    "Reports",
+    "Analytics",
+    "Dashboard",
+    "Full Stack"
+  ],
+  link: "https://dd-management-demo.vercel.app/",
+}
 };
 
 interface GuestbookComment {
