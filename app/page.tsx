@@ -164,7 +164,7 @@ const PROJECTS_DATA: Record<string, ProjectData> = {
   },
   tord: {
     id: "tord",
-    title: "Tord Platform",
+    title: "Tord",
     categoryLabel: "Web Application",
     categoryGroup: "web",
     img: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&auto=format&fit=crop&q=80",
