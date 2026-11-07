@@ -81,6 +81,17 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  --bg: #07070a;
+  --bg-2: #0e0e13;
+  --fg: #f2f0ea;
+  --muted: #8b8b94;
+  --line: rgba(242, 240, 234, 0.12);
+  --accent: #d4ff3a;
+  --display: "Bricolage Grotesque Variable", system-ui, sans-serif;
+  --body: "Inter Variable", system-ui, sans-serif;
+  --mono: "JetBrains Mono Variable", ui-monospace, monospace;
+  --pad: clamp(20px, 4vw, 64px);
+  color-scheme: dark;
 }
 
 .dark {
