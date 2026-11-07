@@ -103,6 +103,7 @@ export default function Contact() {
       <footer className="footer">
         <span>© 2026 {profile.name}</span>
         <span>Built with Next.js · Three.js · GSAP</span>
+        <a href="/">Go to v1 ↑</a>
         <button type="button" onClick={toTop}>
           Back to top ↑
         </button>
