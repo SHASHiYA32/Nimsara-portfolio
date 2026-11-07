@@ -658,9 +658,8 @@ export default function App() {
 
       {/* 1. PRELOADER OVERLAY */}
       <div
-        className={`fixed inset-0 bg-[#000000] z-[100] flex flex-col items-center justify-center p-6 select-none transition-all duration-500 ${
-          isLoadingPreloader ? "opacity-100" : "opacity-0 pointer-events-none"
-        }`}
+        className={`fixed inset-0 bg-[#000000] z-[100] flex flex-col items-center justify-center p-6 select-none transition-all duration-500 ${isLoadingPreloader ? "opacity-100" : "opacity-0 pointer-events-none"
+          }`}
       >
         <div className="max-w-md w-full flex flex-col items-center text-center">
           <div className="w-16 h-16 rounded-2xl bg-[#121215] border border-[#27272a] flex items-center justify-center mb-6 shadow-2xl relative overflow-hidden">
@@ -865,11 +864,10 @@ export default function App() {
             <div className="grid grid-cols-3 sm:flex p-1.5 rounded-2xl bg-[#121215] border border-[#27272a] shadow-xl text-xs font-medium w-full max-w-xl sm:w-auto gap-1">
               <button
                 onClick={() => setActiveTab("projects")}
-                className={`px-2 sm:px-6 py-2.5 sm:py-3 rounded-xl transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 text-[11px] sm:text-xs text-center ${
-                  activeTab === "projects"
-                    ? "bg-white text-black font-semibold shadow-md"
-                    : "text-zinc-400 hover:text-white"
-                }`}
+                className={`px-2 sm:px-6 py-2.5 sm:py-3 rounded-xl transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 text-[11px] sm:text-xs text-center ${activeTab === "projects"
+                  ? "bg-white text-black font-semibold shadow-md"
+                  : "text-zinc-400 hover:text-white"
+                  }`}
               >
                 <FolderGit2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
                 <span className="truncate">Projects</span>
@@ -882,11 +880,10 @@ export default function App() {
 
               <button
                 onClick={() => setActiveTab("techstack")}
-                className={`px-2 sm:px-6 py-2.5 sm:py-3 rounded-xl transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 text-[11px] sm:text-xs text-center ${
-                  activeTab === "techstack"
-                    ? "bg-white text-black font-semibold shadow-md"
-                    : "text-zinc-400 hover:text-white"
-                }`}
+                className={`px-2 sm:px-6 py-2.5 sm:py-3 rounded-xl transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 text-[11px] sm:text-xs text-center ${activeTab === "techstack"
+                  ? "bg-white text-black font-semibold shadow-md"
+                  : "text-zinc-400 hover:text-white"
+                  }`}
               >
                 <Cpu className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
                 <span className="truncate">Tech Stack</span>
@@ -899,11 +896,10 @@ export default function App() {
 
               <button
                 onClick={() => setActiveTab("certificates")}
-                className={`px-2 sm:px-6 py-2.5 sm:py-3 rounded-xl transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 text-[11px] sm:text-xs text-center ${
-                  activeTab === "certificates"
-                    ? "bg-white text-black font-semibold shadow-md"
-                    : "text-zinc-400 hover:text-white"
-                }`}
+                className={`px-2 sm:px-6 py-2.5 sm:py-3 rounded-xl transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 text-[11px] sm:text-xs text-center ${activeTab === "certificates"
+                  ? "bg-white text-black font-semibold shadow-md"
+                  : "text-zinc-400 hover:text-white"
+                  }`}
               >
                 <Award className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
                 <span className="truncate">Certificates</span>
@@ -925,11 +921,10 @@ export default function App() {
                   <button
                     key={cat}
                     onClick={() => setSelectedCategory(cat)}
-                    className={`px-3 py-1.5 rounded-lg transition-all capitalize text-[11px] sm:text-xs ${
-                      selectedCategory === cat
-                        ? "bg-[#18181b] border border-white/20 text-white font-semibold"
-                        : "bg-[#121215] border border-[#27272a] text-zinc-400 hover:text-white hover:border-zinc-500"
-                    }`}
+                    className={`px-3 py-1.5 rounded-lg transition-all capitalize text-[11px] sm:text-xs ${selectedCategory === cat
+                      ? "bg-[#18181b] border border-white/20 text-white font-semibold"
+                      : "bg-[#121215] border border-[#27272a] text-zinc-400 hover:text-white hover:border-zinc-500"
+                      }`}
                   >
                     {cat === "all"
                       ? "All Projects"
@@ -1447,6 +1442,45 @@ export default function App() {
                     </div>
                   </div>
                 </div>
+                <div className="glass-card p-6 rounded-2xl border border-[#27272a] flex flex-col sm:flex-row items-start gap-4 hover:border-zinc-400 transition-all">
+                  <div className="w-12 h-12 rounded-xl bg-[#18181b] border border-[#27272a] flex items-center justify-center text-white shrink-0">
+                    <GraduationCap className="w-6 h-6 text-red-600" />
+                  </div>
+                  <div className="space-y-2 flex-1">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider">
+                        WELINGTON COLLEGE & ACADEMIC CREDENTIALS
+                      </span>
+                      <span className="text-[10px] font-mono text-emerald-400">
+                        Ongoing
+                      </span>
+                    </div>
+                    <h3 className="text-base font-bold text-white">
+                      HND in AI & Data Science
+                    </h3>
+                    <p className="text-xs text-zinc-400 leading-relaxed">
+                      Currently pursuing an HND in AI & Data Science at Welington College,
+                      focusing on machine learning, predictive modeling, data analytics,
+                      and intelligent system development to build modern, data-driven solutions.
+                    </p>
+                    <div className="pt-2 flex items-center justify-between text-xs">
+                      <span className="font-mono text-zinc-500 text-[11px]">
+                        INSTITUTE: Welington College
+                      </span>
+                      <button
+                        onClick={() =>
+                          showToast(
+                            "Academic credentials verified: Active status",
+                          )
+                        }
+                        className="text-xs font-semibold text-white hover:underline flex items-center gap-1"
+                      >
+                        <span>Verify Status</span>
+                        <ExternalLink className="w-3 h-3" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           )}
@@ -1702,7 +1736,7 @@ export default function App() {
                   <div className="flex justify-between font-bold text-white flex-wrap gap-1">
                     <span>Software Engineer — amezcloud</span>
                     <span className="text-zinc-500 font-mono text-[11px]">
-                      2026 — Present
+                      2026-5 — 2026-7
                     </span>
                   </div>
                   <p className="text-zinc-400">
@@ -1741,9 +1775,15 @@ export default function App() {
                   </span>
                 </div>
                 <div className="flex justify-between font-bold text-white flex-wrap gap-1">
-                  <span>Master's in Software Engineering — Java Institute</span>
+                  <span>Master's in Software Engineering</span>
                   <span className="text-zinc-500 font-mono text-[11px]">
-                    Ongoing
+                    Ongoing ...
+                  </span>
+                </div>
+                <div className="flex justify-between font-bold text-white flex-wrap gap-1">
+                  <span>HND in AI & Data Science</span>
+                  <span className="text-zinc-500 font-mono text-[11px]">
+                    Ongoing ...
                   </span>
                 </div>
               </div>
@@ -1752,7 +1792,14 @@ export default function App() {
             <div className="p-4 sm:p-5 border-t border-[#27272a] bg-[#09090b]/90 flex items-center justify-between shrink-0">
               <button
                 onClick={() => {
-                  showToast("Downloading Shashintha Nimsara Resume PDF...");
+                  const link = document.createElement("a");
+                  link.href = "/resume/Resume.jpg";
+                  link.download = "Shashintha_Nimsara_Resume.jpg";
+                  document.body.appendChild(link);
+                  link.click();
+                  document.body.removeChild(link);
+
+                  showToast("Downloading Shashintha Nimsara Resume...");
                   setTimeout(() => setIsResumeModalOpen(false), 1000);
                 }}
                 className="px-4 sm:px-5 py-2.5 rounded-xl bg-white text-black font-bold text-xs hover:bg-zinc-200 flex items-center gap-2"
@@ -1854,19 +1901,17 @@ export default function App() {
                         setIsCommandPaletteOpen(false);
                       }}
                       onMouseEnter={() => setCommandSelectedIndex(idx)}
-                      className={`w-full p-3 rounded-xl flex items-center justify-between text-left transition-all duration-150 ${
-                        isSelected
-                          ? "bg-gradient-to-r from-indigo-950/80 to-[#18181b] border border-indigo-500/40 text-white shadow-md"
-                          : "bg-transparent border border-transparent text-zinc-300 hover:bg-[#18181b]"
-                      }`}
+                      className={`w-full p-3 rounded-xl flex items-center justify-between text-left transition-all duration-150 ${isSelected
+                        ? "bg-gradient-to-r from-indigo-950/80 to-[#18181b] border border-indigo-500/40 text-white shadow-md"
+                        : "bg-transparent border border-transparent text-zinc-300 hover:bg-[#18181b]"
+                        }`}
                     >
                       <div className="flex items-center gap-3 min-w-0 pr-2">
                         <div
-                          className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${
-                            isSelected
-                              ? "bg-indigo-600/30 border border-indigo-500/50"
-                              : "bg-[#18181b] border border-[#27272a]"
-                          }`}
+                          className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${isSelected
+                            ? "bg-indigo-600/30 border border-indigo-500/50"
+                            : "bg-[#18181b] border border-[#27272a]"
+                            }`}
                         >
                           {cmd.icon}
                         </div>
