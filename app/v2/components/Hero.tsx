@@ -12,10 +12,11 @@ export default function Hero() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // entrance, after the loader leaves
+      // Universal initial hidden states
       gsap.set(".hero .inner", { yPercent: 115, opacity: 1 });
       gsap.set(".hero-frame", { clipPath: "inset(100% 0% 0% 0% round 20px)" });
       gsap.set(".hero [data-in]", { y: 24, opacity: 0 });
+
       const off = onReady(() => {
         const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
         tl.to(".hero-frame", { clipPath: "inset(0% 0% 0% 0% round 20px)", duration: 1.4, ease: "power4.inOut" })
@@ -23,13 +24,24 @@ export default function Hero() {
           .to(".hero [data-in]", { y: 0, opacity: 1, duration: 0.9, stagger: 0.08 }, "-=0.7");
       });
 
-      // scroll: frame zooms in, title lines drift apart
+      const mm = gsap.matchMedia();
       const st = { trigger: root.current, start: "top top", end: "bottom top", scrub: true };
-      gsap.to(".hero-frame-inner", { scale: 1.35, ease: "none", scrollTrigger: st });
-      gsap.to(".hero-frame", { yPercent: -12, ease: "none", scrollTrigger: st });
-      gsap.to(".hero-title .line:nth-child(1)", { xPercent: -10, ease: "none", scrollTrigger: st });
-      gsap.to(".hero-title .line:nth-child(2)", { xPercent: 10, ease: "none", scrollTrigger: st });
-      gsap.to(".hero-foot, .hero-sub", { opacity: 0, y: -30, ease: "none", scrollTrigger: { ...st, end: "40% top" } });
+
+      // Desktop: Exactly your original scroll animations
+      mm.add("(min-width: 768px)", () => {
+        gsap.to(".hero-frame-inner", { scale: 1.35, ease: "none", scrollTrigger: st });
+        gsap.to(".hero-frame", { yPercent: -12, ease: "none", scrollTrigger: st });
+        gsap.to(".hero-title .line:nth-child(1)", { xPercent: -10, ease: "none", scrollTrigger: st });
+        gsap.to(".hero-title .line:nth-child(2)", { xPercent: 10, ease: "none", scrollTrigger: st });
+        gsap.to(".hero-foot, .hero-sub", { opacity: 0, y: -30, ease: "none", scrollTrigger: { ...st, end: "40% top" } });
+      });
+
+      // Mobile: Safe subtle scroll behavior without side-scrolling text breaks
+      mm.add("(max-width: 767px)", () => {
+        gsap.to(".hero-frame-inner", { scale: 1.15, ease: "none", scrollTrigger: st });
+        gsap.to(".hero-foot", { opacity: 0, ease: "none", scrollTrigger: { ...st, end: "30% top" } });
+      });
+
       return off;
     }, root.current ?? undefined);
     return () => ctx.revert();
@@ -37,7 +49,7 @@ export default function Hero() {
 
   return (
     <section className="hero" ref={root}>
-      <div className="hero-frame" data-cursor="Drag the liquid">
+      <div className="hero-frame" data-cursor="Drag">
         <div className="hero-frame-inner">
           <LiquidImage src={images.hero} colors={FALLBACK} className="liquid" />
         </div>
