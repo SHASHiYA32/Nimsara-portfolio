@@ -1,92 +1,84 @@
 "use client";
-
 import { useEffect, useRef } from "react";
-import { gsap } from "@/lib/gsap";
-import { useSceneTarget } from "@/hooks/useSceneTarget";
-import { TARGETS } from "@/lib/store";
-import { profile } from "@/data/content";
+import { gsap, onReady } from "@/lib/gsap";
+import { scrollToId } from "@/lib/lenis";
+import { profile, images } from "@/data/portfolio";
+import LiquidImage from "./LiquidImage";
 
-export default function Hero({ ready }: { ready: boolean }) {
+const FALLBACK: [string, string] = ["#1c2b3a", "#0a0f16"];
+
+export default function Hero() {
   const root = useRef<HTMLElement>(null);
-  useSceneTarget(root, TARGETS.hero);
 
-  // Initial hidden state + scroll-away parallax.
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.set(".hero .line-inner", { yPercent: 115 });
-      gsap.set(".hero .hero-fade", { opacity: 0, y: 24 });
-
-      gsap.to(".hero-content", {
-        yPercent: -18,
-        opacity: 0,
-        ease: "none",
-        scrollTrigger: {
-          trigger: root.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: true,
-        },
+      // entrance, after the loader leaves
+      gsap.set(".hero .inner", { yPercent: 115, opacity: 1 });
+      gsap.set(".hero-frame", { clipPath: "inset(100% 0% 0% 0% round 20px)" });
+      gsap.set(".hero [data-in]", { y: 24, opacity: 0 });
+      const off = onReady(() => {
+        const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
+        tl.to(".hero-frame", { clipPath: "inset(0% 0% 0% 0% round 20px)", duration: 1.4, ease: "power4.inOut" })
+          .to(".hero .inner", { yPercent: 0, duration: 1.2, stagger: 0.1 }, "-=0.9")
+          .to(".hero [data-in]", { y: 0, opacity: 1, duration: 0.9, stagger: 0.08 }, "-=0.7");
       });
-    }, root);
+
+      // scroll: frame zooms in, title lines drift apart
+      const st = { trigger: root.current, start: "top top", end: "bottom top", scrub: true };
+      gsap.to(".hero-frame-inner", { scale: 1.35, ease: "none", scrollTrigger: st });
+      gsap.to(".hero-frame", { yPercent: -12, ease: "none", scrollTrigger: st });
+      gsap.to(".hero-title .line:nth-child(1)", { xPercent: -10, ease: "none", scrollTrigger: st });
+      gsap.to(".hero-title .line:nth-child(2)", { xPercent: 10, ease: "none", scrollTrigger: st });
+      gsap.to(".hero-foot, .hero-sub", { opacity: 0, y: -30, ease: "none", scrollTrigger: { ...st, end: "40% top" } });
+      return off;
+    }, root.current ?? undefined);
     return () => ctx.revert();
   }, []);
 
-  // Intro plays when the loader curtain lifts.
-  useEffect(() => {
-    if (!ready) return;
-    const ctx = gsap.context(() => {
-      gsap
-        .timeline({ delay: 0.25 })
-        .to(".hero .line-inner", {
-          yPercent: 0,
-          duration: 1.4,
-          ease: "expo.out",
-          stagger: 0.12,
-        })
-        .to(
-          ".hero .hero-fade",
-          { opacity: 1, y: 0, duration: 1, ease: "power3.out", stagger: 0.09 },
-          "-=0.9"
-        );
-    }, root);
-    return () => ctx.revert();
-  }, [ready]);
-
   return (
-    <section ref={root} id="top" className="hero">
-      <div className="hero-content">
-        <p className="eyebrow hero-fade">
-          <i className="pulse" /> Available for new projects
-        </p>
-        <h1 className="hero-title" aria-label={profile.name}>
-          <span className="line">
-            <span className="line-inner">{profile.first}</span>
-          </span>
-          <span className="line">
-            <span className="line-inner">
-              {profile.last}
-              <em>.</em>
-            </span>
-          </span>
-        </h1>
-        <p className="hero-role hero-fade">{profile.role}</p>
-        <p className="hero-lead hero-fade">{profile.lead}</p>
-        <div className="hero-actions hero-fade">
-          <a href="#work" className="btn btn-solid" data-scroll-to="#work">
-            View projects
-          </a>
-          <a href="#contact" className="btn btn-ghost" data-scroll-to="#contact">
-            Get in touch
-          </a>
+    <section className="hero" ref={root}>
+      <div className="hero-frame" data-cursor="Drag the liquid">
+        <div className="hero-frame-inner">
+          <LiquidImage src={images.hero} colors={FALLBACK} className="liquid" />
         </div>
       </div>
-      <div className="hero-scroll hero-fade">
-        <span>Scroll</span>
-        <i />
+
+      <p className="hero-role mono" data-in>
+        <span className="dot" /> {profile.role}
+      </p>
+
+      <h1 className="hero-title" aria-label={profile.name}>
+        <span className="line">
+          <span className="inner">{profile.first}</span>
+        </span>
+        <span className="line">
+          <span className="inner">
+            {profile.last}
+            <em>.</em>
+          </span>
+        </span>
+      </h1>
+
+      <div className="hero-bottom">
+        <p className="hero-sub" data-in>
+          {profile.intro}
+        </p>
+        <div className="hero-cta" data-in>
+          <button className="btn" data-magnetic onClick={() => scrollToId("work")} data-cursor-link>
+            View projects <span aria-hidden>↓</span>
+          </button>
+          <button className="btn ghost" data-magnetic onClick={() => scrollToId("contact")} data-cursor-link>
+            Hire me
+          </button>
+        </div>
       </div>
-      <div className="hero-corner hero-fade">
+
+      <div className="hero-foot mono" data-in>
         <span>{profile.location}</span>
-        <span>Est. 2024</span>
+        <span className="scroll-cue">
+          Scroll to explore <i />
+        </span>
+        <span>© 2026</span>
       </div>
     </section>
   );
