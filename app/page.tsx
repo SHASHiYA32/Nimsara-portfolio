@@ -5,8 +5,6 @@ import React, {
   useEffect,
   useRef,
   useCallback,
-  FormEvent,
-  MouseEvent,
 } from "react";
 import {
   FileText,
@@ -31,9 +29,6 @@ import {
   GitBranch,
   Database,
   Container,
-  ShieldCheck,
-  Cloud,
-  Layout,
   ArrowUp,
   Clock,
   BookOpen,
@@ -658,9 +653,8 @@ export default function App() {
 
       {/* 1. PRELOADER OVERLAY */}
       <div
-        className={`fixed inset-0 bg-[#000000] z-[100] flex flex-col items-center justify-center p-6 select-none transition-all duration-500 ${
-          isLoadingPreloader ? "opacity-100" : "opacity-0 pointer-events-none"
-        }`}
+        className={`fixed inset-0 bg-[#000000] z-[100] flex flex-col items-center justify-center p-6 select-none transition-all duration-500 ${isLoadingPreloader ? "opacity-100" : "opacity-0 pointer-events-none"
+          }`}
       >
         <div className="max-w-md w-full flex flex-col items-center text-center">
           <div className="w-16 h-16 rounded-2xl bg-[#121215] border border-[#27272a] flex items-center justify-center mb-6 shadow-2xl relative overflow-hidden">
@@ -865,11 +859,10 @@ export default function App() {
             <div className="grid grid-cols-3 sm:flex p-1.5 rounded-2xl bg-[#121215] border border-[#27272a] shadow-xl text-xs font-medium w-full max-w-xl sm:w-auto gap-1">
               <button
                 onClick={() => setActiveTab("projects")}
-                className={`px-2 sm:px-6 py-2.5 sm:py-3 rounded-xl transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 text-[11px] sm:text-xs text-center ${
-                  activeTab === "projects"
+                className={`px-2 sm:px-6 py-2.5 sm:py-3 rounded-xl transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 text-[11px] sm:text-xs text-center ${activeTab === "projects"
                     ? "bg-white text-black font-semibold shadow-md"
                     : "text-zinc-400 hover:text-white"
-                }`}
+                  }`}
               >
                 <FolderGit2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
                 <span className="truncate">Projects</span>
@@ -882,11 +875,10 @@ export default function App() {
 
               <button
                 onClick={() => setActiveTab("techstack")}
-                className={`px-2 sm:px-6 py-2.5 sm:py-3 rounded-xl transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 text-[11px] sm:text-xs text-center ${
-                  activeTab === "techstack"
+                className={`px-2 sm:px-6 py-2.5 sm:py-3 rounded-xl transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 text-[11px] sm:text-xs text-center ${activeTab === "techstack"
                     ? "bg-white text-black font-semibold shadow-md"
                     : "text-zinc-400 hover:text-white"
-                }`}
+                  }`}
               >
                 <Cpu className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
                 <span className="truncate">Tech Stack</span>
@@ -899,11 +891,10 @@ export default function App() {
 
               <button
                 onClick={() => setActiveTab("certificates")}
-                className={`px-2 sm:px-6 py-2.5 sm:py-3 rounded-xl transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 text-[11px] sm:text-xs text-center ${
-                  activeTab === "certificates"
+                className={`px-2 sm:px-6 py-2.5 sm:py-3 rounded-xl transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 text-[11px] sm:text-xs text-center ${activeTab === "certificates"
                     ? "bg-white text-black font-semibold shadow-md"
                     : "text-zinc-400 hover:text-white"
-                }`}
+                  }`}
               >
                 <Award className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
                 <span className="truncate">Certificates</span>
@@ -925,11 +916,10 @@ export default function App() {
                   <button
                     key={cat}
                     onClick={() => setSelectedCategory(cat)}
-                    className={`px-3 py-1.5 rounded-lg transition-all capitalize text-[11px] sm:text-xs ${
-                      selectedCategory === cat
+                    className={`px-3 py-1.5 rounded-lg transition-all capitalize text-[11px] sm:text-xs ${selectedCategory === cat
                         ? "bg-[#18181b] border border-white/20 text-white font-semibold"
                         : "bg-[#121215] border border-[#27272a] text-zinc-400 hover:text-white hover:border-zinc-500"
-                    }`}
+                      }`}
                   >
                     {cat === "all"
                       ? "All Projects"
@@ -1911,19 +1901,17 @@ export default function App() {
                         setIsCommandPaletteOpen(false);
                       }}
                       onMouseEnter={() => setCommandSelectedIndex(idx)}
-                      className={`w-full p-3 rounded-xl flex items-center justify-between text-left transition-all duration-150 ${
-                        isSelected
+                      className={`w-full p-3 rounded-xl flex items-center justify-between text-left transition-all duration-150 ${isSelected
                           ? "bg-gradient-to-r from-indigo-950/80 to-[#18181b] border border-indigo-500/40 text-white shadow-md"
                           : "bg-transparent border border-transparent text-zinc-300 hover:bg-[#18181b]"
-                      }`}
+                        }`}
                     >
                       <div className="flex items-center gap-3 min-w-0 pr-2">
                         <div
-                          className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${
-                            isSelected
+                          className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${isSelected
                               ? "bg-indigo-600/30 border border-indigo-500/50"
                               : "bg-[#18181b] border border-[#27272a]"
-                          }`}
+                            }`}
                         >
                           {cmd.icon}
                         </div>
